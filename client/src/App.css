@@ -31,3 +31,20 @@
     transform: rotate(360deg);
   }
 }
+
+.up{
+  background-image: url("./up.jpg");
+}
+
+.down{
+  background-image: url("./down.jpg");
+}
+
+.left{
+  background-image: url("./left.jpg");
+}
+
+.right{
+  background-image: url("./right.jpg");
+}
+
