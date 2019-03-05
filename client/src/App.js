@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import SignIn from './SignIn.js'
+import SignIn from './components/SignIn/SignIn.js';
 
 class App extends Component {
   constructor(props){
