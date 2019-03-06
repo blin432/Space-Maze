@@ -38,23 +38,22 @@ class SignIn extends Component {
          <div>
             <h3 className="m-3">Sign Up To Play Now</h3>
             <Form onSubmit={(e) => this.signUp(e)}>
-            {data.map((PII, i) =>
-            <InputGroup  >
-              <FormControl
-                id={data.id}
-                aria-label={data.ariaLabel}
-                value={this.state.username}
-                onChange={data.onChange}
-              />
-            </InputGroup>
-            )}
+                <Form.Group controlId="formBasicEmail">
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
+                </Form.Group>
 
-            <Button className="m-4" type="submit">Complete Sign Up</Button>
-          <div className="m-4">
-            <p className= "m-4">Already a Member?</p>
-            <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
-          </div>  
-        </Form>
+                <Form.Group controlId="formBasicPassword">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
+                </Form.Group>
+
+                <Button className="m-4" type="submit">Complete Sign Up</Button>
+                <div className="m-4">
+                  <p className= "m-4">Already a Member?</p>
+                  <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
+                </div>  
+            </Form>
         </div> 
         </Col>
         </Row>
