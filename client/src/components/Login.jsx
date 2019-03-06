@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
+import {Button,InputGroup,FormControl} from 'react-bootstrap';
 import './SignIn.css';
 import Modal from 'react-bootstrap/Modal'
 
@@ -52,3 +50,27 @@ class Login extends Component {
 }
 
 export default Login;
+
+  // loginShow(){
+  //   if(this.state.button===false){
+  //     this.setState({
+  //       button:true,
+  //       signUpDisplay:"none",
+  //       loginDisplay:"block"
+  //     })
+  //   }
+  //   else{
+  //     this.setState({
+  //       button:false,
+  //       signUpDisplay:"block",
+  //       loginDisplay:"none"
+  //     })
+  //   }   
+  // }
+  // login(){
+  //   axios.post('users/login',{email:"oginEmail.value",password:"oginPw.value"}).then((response) => {
+  //     console.log(response.data);
+  //     }).catch((error)=>{
+  //         console.log(error);
+  //     });
+  // }

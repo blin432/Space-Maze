@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import SignIn from './components/SignIn/SignIn.js';
+import SignIn from './components/SignIn.jsx';
 
 class App extends Component {
   constructor(props){
@@ -10,8 +10,8 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
-      <SignIn/>
+      <div>
+      <SignIn />
     </div>
     );
   }
