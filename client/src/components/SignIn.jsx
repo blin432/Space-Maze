@@ -35,29 +35,25 @@ class SignIn extends Component {
       <Container className="m-5 text-center">
         <Row>
           <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-         <div>
-            <h3 className="m-3">Sign Up To Play Now</h3>
-            <Form onSubmit={(e) => this.signUp(e)}>
-                <Form.Group controlId="formBasicEmail">
-                      <Form.Label>Username</Form.Label>
-                      <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
-                </Form.Group>
-
-                <Button className="m-4" type="submit">Complete Sign Up</Button>
-                <div className="m-4">
-                  <p className= "m-4">Already a Member?</p>
-                  <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
-                </div>  
-            </Form>
-        </div> 
-        </Col>
+              <h3 className="m-3">Sign Up To Play Now</h3>
+              <Form onSubmit={(e) => this.signUp(e)}>
+                  <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
+                  </Form.Group>
+                  <Button className="m-4" type="submit">Complete Sign Up</Button>
+                  <div className="m-4">
+                    <p className= "m-4">Already a Member?</p>
+                    <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
+                  </div>  
+              </Form> 
+         </Col>
         </Row>
-    </Container>
+      </Container>
     );
   }
 }
