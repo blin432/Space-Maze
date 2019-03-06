@@ -46,7 +46,7 @@ render() {
                   <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
             </Form.Group>
             <div className="d-flex justify-content-center" >
-              <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" stype="submit"> Login</Button>
+              <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" type="submit"> Login</Button>
               <Button style={{display:"block"}} className = "mt-3 ml-2"variant="outline-secondary" onClick={() => this.loginShow()}> Cancel</Button>
             </div>
           </Form>
