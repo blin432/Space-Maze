@@ -37,11 +37,11 @@ class SignIn extends Component {
           <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
               <h3 className="m-3">Sign Up To Play Now</h3>
               <Form onSubmit={(e) => this.signUp(e)}>
-                  <Form.Group controlId="formBasicEmail">
+                  <Form.Group >
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
                   </Form.Group>
-                  <Form.Group controlId="formBasicPassword">
+                  <Form.Group >
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
                   </Form.Group>
