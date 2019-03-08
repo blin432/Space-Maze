@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Field from './components/Field.jsx';
-
+import SignIn from './components/SignIn.jsx';
+import Login from './components/Login.jsx';
 
 class App extends Component {
   constructor(){
@@ -13,9 +14,12 @@ class App extends Component {
 
   render() {
     return (
-      <div >
-        <Field players={this.state.players}/>
-      </div>
+      <div>
+      <SignIn />
+      <Login/>
+      <Field players={this.state.players}/>
+    </div>
+
     );
   }
 }

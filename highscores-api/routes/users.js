@@ -4,6 +4,7 @@ var db = require('../db');
 var bcrypt = require('bcryptjs');
 var passport = require('../passport.js');
 
+
 // LOG IN
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
     res.json({ username: req.user.username });
@@ -54,6 +55,7 @@ router.post('/register', function (req, res, next) {
         .catch(function (error) {
             console.log('ERROR:', error); // print error;
             res.status(400).send(error)
+            console.log(username);
         });
 });
 
