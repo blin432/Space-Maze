@@ -20,7 +20,7 @@ class Field extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount() { 
         document.addEventListener("keydown", (e) => this.move(e));
         this.spawn()
     }
@@ -51,18 +51,21 @@ class Field extends Component {
           
         switch( keyCode ) {
             case 37:
+                console.log(this.state.myPosition)
                 if(this.state.myPosition % 5 === 0){
                     return
                 }
                 this.calculateNewPosition(-1,left);
                 break;
             case 38:
+            console.log(this.state.myPosition)
                 if(this.state.myPosition -5 < 0 ){
                     return
                 }
                 this.calculateNewPosition(-5,up)
                 break;
             case 39:
+            console.log(this.state.myPosition)
                 for(let i = this.state.myPosition; i >= 4; i-=5){
                     if(i == 4 ){ 
                         return
@@ -71,6 +74,7 @@ class Field extends Component {
                 this.calculateNewPosition(+1,right)
                 break;
             case 40:
+            console.log(this.state.myPosition)
                 if(this.state.myPosition + 5 > this.state.grid.length){
                     return
                 }
@@ -90,10 +94,11 @@ class Field extends Component {
 
         return(
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
+
                 <Row>{field}</Row >
             </Container>
         )
     }
 }
 
-export default Field
+export default Field;

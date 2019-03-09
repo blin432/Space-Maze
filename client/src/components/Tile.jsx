@@ -11,7 +11,7 @@ class Tile extends Component {
     }
 
     render(){
-        let spaceDebris = [Rock,Asteroid]
+        // let spaceDebris = [Rock,Asteroid]
         return(
         <img style={{ backgroundColor : 'black'}} src={this.state.passable === false ? Rock : Space } style={{height: 30, width: 30 }} alt={'tile'}/>
         )

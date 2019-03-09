@@ -32,10 +32,10 @@ class SignUp extends Component {
   
   render() {
     return (
-      <Container className="m-5 text-center">
+      <Container className="text-center" xs={12} md={{ size: 4, offset: 8 }}  style={{maxWidth: '400px'}}>
         <Row>
-          <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-              <h3 className="m-3">Sign Up To Play Now</h3>
+          <Col className="mt-5">
+              <h3 className="mb-5">Sign Up To Play Now</h3>
               <Form onSubmit={(e) => this.signUp(e)}>
                   <Form.Group controlId="formBasicEmail">
                         <Form.Label>Username</Form.Label>
@@ -48,7 +48,7 @@ class SignUp extends Component {
                   <Button className="m-4" type="submit">Complete Sign Up</Button>
                   <div className="m-4">
                     <p className= "m-4">Already a Member?</p>
-                    <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
+                    <Button className = "m-2" variant="primary" onClick={() => this.loginShow()}> Login in Here</Button>
                   </div>  
               </Form> 
          </Col>
