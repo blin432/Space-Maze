@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Field from './components/Field.jsx';
-import SignIn from './components/SignIn.jsx';
+import SignUp from './components/SignUp.jsx';
 import Login from './components/Login.jsx';
-import LogOut from './components/Logout.jsx';
-import Highscores from './components/Highscores.jsx';
+import Home from './components/Home.jsx';
+import {Switch, Route} from 'react-router-dom';
+import NavBar from './components/NavBar.jsx';
 
 
 class App extends Component {
@@ -18,12 +19,14 @@ class App extends Component {
   render() {
     return (
       <div>
-      <LogOut/>
-      <SignIn />
-      <Login/>
-      <Highscores/>
-      <Field players={this.state.players}/>
-    </div>
+           <NavBar/>
+                   <Switch>
+                       <Route exact path ="/" component={Home}/>
+                       <Route exact path ="/showSignUp" component={SignUp}/>
+                       <Route exact path ="/showLogIn" component={Login}/>
+                       <Route exact path="/play" component={Field}/>
+                   </Switch>
+      </div>
 
     );
   }

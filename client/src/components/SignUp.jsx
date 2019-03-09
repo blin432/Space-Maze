@@ -4,7 +4,7 @@ import { Button,Form,InputGroup,FormControl,Container,Row,Col } from 'react-boot
 // import './SignIn.css';
 import {data} from '../signUpData.js';
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -58,4 +58,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default SignUp;
