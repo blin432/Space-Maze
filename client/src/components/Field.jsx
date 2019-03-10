@@ -10,6 +10,8 @@ import  {lv1, lv2 ,lv3 ,lv4, lv5} from '../maps.js';
 import Tile from '../components/Tile.jsx';
 import Rock from '../Boundary.png';
 import Space from '../space.jpg';
+import axios from 'axios';
+import Highscores from './Highscores.jsx';
 
 
 class Field extends Component {
@@ -19,11 +21,31 @@ class Field extends Component {
             grid : lv5,
             myPosition: null,
             pointing : up,
-            show:false
+            show:false,
+            username:'',
+            time:123 ///harded code, after refactoring will have to set state 
         }
     }
 
     componentDidMount() {
+
+        //checks to see if user is logged in when page loads
+        // if it is logged in set username to current username
+        //if not go back to home page
+        axios.get('/users/status').then((response) =>{
+            console.log(response)
+            let status= response.data.isLoggedIn;
+            if (!status){
+                this.props.history.push('/');
+            }else {
+                return this.setState({
+                    username:response.data.username
+                })
+            }
+        }).catch((error) => {
+                
+              console.log(error)
+            });
         document.addEventListener("keydown", (e) => this.move(e));
         this.spawnShip();
         
@@ -33,6 +55,19 @@ class Field extends Component {
         document.removeEventListener("keydown", (e) => this.move(e));
     }
 
+    //////////
+    //click event to post high score
+    postHighScore(){
+        let username = this.state.username;
+        let points = this.state.time;
+        axios.post('/scores/record',{username:username,
+            points:points
+        }).then((response) =>{
+            console.log(response)
+        }).catch((error) => {
+              console.log(error)
+            });
+    }
     spawnShip(){
         let newGrid = [...this.state.grid]
         let randomIndex = Math.floor(Math.random()*newGrid.length);
@@ -42,8 +77,18 @@ class Field extends Component {
     }
    
    
-    handleClose() {
-        this.setState({ show: false });
+    handleClose(e) {
+        console.log(e);
+        // this.setState({ show: false, grid: lv4 });
+        
+        // let newGrid = [...this.state.grid]
+        // let randomIndex = Math.floor(Math.random()*newGrid.length);
+        // newGrid[randomIndex] = 2;
+        // newGrid[0]=3;
+        // this.setState({grid : newGrid, myPosition: randomIndex})
+        
+        
+        
     }
     
     handleShow() {
@@ -63,7 +108,7 @@ class Field extends Component {
         updatedGrid[this.state.myPosition] = 0;}
 
         this.setState({grid : updatedGrid, myPosition: endPosition, pointing: pointTo})
-    }
+    } 
     
     move({keyCode}){
           
@@ -108,6 +153,20 @@ class Field extends Component {
         </Col>)
 
         return(
+            <div>
+
+                {/* rendering highScores here */}
+            <Container className="text-center" style={{maxWidth: 400, backgroundColor:'lightblue'}}>
+                <Col  classname="text-center" style={{margin : '5px'}}>
+
+                    {/* Highscores has a Scores compononent that is passed down a state of scores in an array */}
+                    <Highscores/>
+                </Col>
+            </Container>
+
+              {/* added this button to post highscores, afer refactoring will probably be in a prompt/alert */}
+                <Button onClick={() => this.postHighScore()}>Post HighScore</Button>
+
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
                 <Row>{field}</Row >
                 <Alert show={this.state.show} onClose={handleHide} variant="success">
@@ -119,13 +178,13 @@ class Field extends Component {
                     </p>
                     <hr />
                     <div className="d-flex justify-content-end">
-                        <Button onClick={handleHide} variant="outline-success">
+                        <Button onClick={(e)=>this.handleClose(e)} variant="outline-success">
                         Close me ya'll!
                         </Button>
                     </div>
                 </Alert>
-                
             </Container>
+            </div>
         )
     }
 }

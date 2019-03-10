@@ -12,14 +12,16 @@ class LogOut extends Component {
       
     }
   }
-
-  logOut(){
-    let { username, password } = this.state
-      axios.post('/users/logout').then((response) => console.log(response))
+  componentDidMount() {
+    axios.post('/users/logout').then((response) => console.log(response))
       .catch((error) => console.log(error))
-  } 
+}
+  // logOut(){
+  //     axios.post('/users/logout').then((response) => console.log(response))
+  //     .catch((error) => console.log(error))
+  // } 
   render() {
-    return <Button variant="outline-secondary" onClick={() => this.logOut()} > Logout</Button>      
+    return <h1>logged out</h1>
   }
 }
 export default LogOut;

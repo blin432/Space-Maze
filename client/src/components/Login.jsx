@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Form,Container,Row,Col } from 'react-bootstrap';
+import { Button,Form,Container,Row,Col,Alert } from 'react-bootstrap';
 // import './SignIn.css';
 // import Modal from 'react-bootstrap/Modal';
 // import {data} from '../signUpData.js';
@@ -11,15 +11,22 @@ class Login extends Component {
     this.state={
       username: '',
       password: '',
+      show:false
     }
   }
+
+
   login(e){
     e.preventDefault()
     let { username, password } = this.state
       axios.post('/users/login', { 
       username, 
-      password}).then((response) => console.log(response))
-      .catch((error) => console.log(error))
+      password}).then((response) =>{
+        this.props.history.push("/play")
+        console.log(response)
+      }).catch((error) =>{console.log(error)
+        this.setState({show:true})
+      });
   }
   handleUsernameInput(input){
     this.setState({username: input})
@@ -28,7 +35,9 @@ class Login extends Component {
   handlePasswordInput(input){
     this.setState({password: input})
   }
-  
+  handleHide(){
+    this.setState({ show: false });
+  }
 //   
 render() {
   return (
@@ -36,6 +45,18 @@ render() {
       <Row>
         <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
           <h3 className="m-3">Login To Play Now</h3>
+          <Alert show={this.state.show}  onClose variant="danger">
+                  <Alert.Heading>Error In Logging In</Alert.Heading>
+                  <p>
+                    Password or username incorrect
+                  </p>
+                  <hr />
+                  <div className="d-flex justify-content-end">
+                    <Button onClick={() => this.handleHide()} variant="outline-success">
+                      Okay
+                    </Button>
+                  </div>
+          </Alert>
           <Form onSubmit={(e) => this.login(e)}>
             <Form.Group >
                   <Form.Label>Username</Form.Label>
