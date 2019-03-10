@@ -10,9 +10,30 @@ class NavBar extends Component{
     constructor(props){
         super(props)
         this.state={
-          hidden:this.props.hidden
+          hidden:true
         }
       }
+      componentDidMount() {
+console.log(this.props.match)
+       //checks if user is logged in to show logout link
+        axios.get('/users/status').then((response) =>{
+            console.log(response.data)
+            let status= response.data.isLoggedIn;
+            if (!status){
+                this.setState({
+                    hidden:true
+
+                });
+            }else {
+                return this.setState({
+                    hidden:false
+                })
+            }
+        }).catch((error) => {    
+              console.log(error)
+            });
+    }
+
     render(){ 
         
         return(
