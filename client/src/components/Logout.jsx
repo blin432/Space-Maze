@@ -13,8 +13,10 @@ class LogOut extends Component {
     }
   }
   componentDidMount() {
-    axios.post('/users/logout').then((response) => console.log(response))
-      .catch((error) => console.log(error))
+    axios.post('/users/logout').then((response) =>{
+      console.log(response)
+      this.props.history.push("/");
+    }).catch((error) => console.log(error))
 }
   // logOut(){
   //     axios.post('/users/logout').then((response) => console.log(response))

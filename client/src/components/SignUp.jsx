@@ -78,11 +78,9 @@ class SignUp extends Component {
                   </Form.Group>
                   <Button className="m-4" type="submit">Complete Sign Up</Button>
                   <div className="m-4">
-                    <p className= "m-4">Already a Member?</p>
-                    <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
+                    <p className= "m-4">Already a Member? <a className="ml-5" href='/showLogin'>Log In Here</a></p>
                   </div>  
               </Form> 
-              
          </Col>
         </Row>
       </Container>

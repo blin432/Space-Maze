@@ -26,9 +26,9 @@ class Field extends Component {
             time:123 ///harded code, after refactoring will have to set state 
         }
     }
-
+    
     componentDidMount() {
-
+        console.log(this.props.match);
         //checks to see if user is logged in when page loads
         // if it is logged in set username to current username
         //if not go back to home page
@@ -38,6 +38,7 @@ class Field extends Component {
             if (!status){
                 this.props.history.push('/');
             }else {
+                
                 return this.setState({
                     username:response.data.username
                 })
@@ -48,6 +49,9 @@ class Field extends Component {
             });
         document.addEventListener("keydown", (e) => this.move(e));
         this.spawnShip();
+        
+
+        
         
     }
     
@@ -154,7 +158,6 @@ class Field extends Component {
 
         return(
             <div>
-
                 {/* rendering highScores here */}
             <Container className="text-center" style={{maxWidth: 400, backgroundColor:'lightblue'}}>
                 <Col  classname="text-center" style={{margin : '5px'}}>

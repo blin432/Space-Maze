@@ -38,6 +38,9 @@ class Login extends Component {
   handleHide(){
     this.setState({ show: false });
   }
+  cancel(){
+    this.props.history.push("/showSignUp");
+  }
 //   
 render() {
   return (
@@ -68,7 +71,7 @@ render() {
             </Form.Group>
             <div className="d-flex justify-content-center" >
               <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" type="submit"> Login</Button>
-              <Button style={{display:"block"}} className = "mt-3 ml-2"variant="outline-secondary" onClick={() => this.loginShow()}> Cancel</Button>
+              <Button style={{display:"block"}} className = "mt-3 ml-2"variant="outline-secondary" onClick={() => this.cancel()}> Cancel</Button>
             </div>
           </Form>
         </Col>
