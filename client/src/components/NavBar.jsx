@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import {Navbar, Nav, Container} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import {navOpts} from '../navOpts.js'
 import up from '../up.png'

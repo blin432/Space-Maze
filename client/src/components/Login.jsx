@@ -35,7 +35,7 @@ render() {
     <Container className="text-center" style={{maxWidth: '400px'}}>
       <Row>
         <Col>
-          <h3 className="mt-5">Login To Play Now</h3>
+          <h3 className="mt-5">Log In</h3>
           <Form onSubmit={(e) => this.login(e)}>
             <Form.Group controlId="formBasicEmail">
                   <Form.Label>Username</Form.Label>
@@ -47,7 +47,6 @@ render() {
             </Form.Group>
             <div className="d-flex justify-content-center" >
               <Button style={{display:"block"}} className = "mt-3 mr-2"variant="primary" type="submit"> Login</Button>
-              <Button style={{display:"block"}} className = "mt-3 ml-2"variant="primary" onClick={() => this.loginShow()}> Cancel</Button>
             </div>
           </Form>
         </Col>
