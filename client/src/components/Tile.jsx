@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Rock from '../Boundary.png';
 import Space from '../space.jpg';
 import Asteroid from '../asteroid.png';
-// import { clearScreenDown } from 'readline';
 import Down from '../down.png';
 class Tile extends Component {
     constructor(props){
@@ -14,6 +13,7 @@ class Tile extends Component {
     }
 
     render(){
+
         let renderedObject= ()=>{
             if (this.state.finish ===false){
                 return Down;
