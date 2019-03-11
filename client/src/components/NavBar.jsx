@@ -2,10 +2,39 @@ import React, {Component} from 'react';
 import '../App.css';
 import {Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
-import {navOpts} from '../navOpts.js'
-import up from '../up.png'
+import {navOpts} from '../navOpts.js';
+import axios from 'axios';
+import up from '../up.png';
 
 class NavBar extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      hidden:true
+    }
+  }
+
+  componentDidMount() {
+    console.log(this.props.match)
+           //checks if user is logged in to show logout link
+            axios.get('/users/status').then((response) =>{
+                console.log(response.data)
+                let status= response.data.isLoggedIn;
+                if (!status){
+                    this.setState({
+                        hidden:true
+    
+                    });
+                }else {
+                    return this.setState({
+                        hidden:false
+                    })
+                }
+            }).catch((error) => {    
+                  console.log(error)
+                });
+        }
+
     render(){ 
         return(
             <Navbar bg="primary" expand="dark" expand="md">
@@ -25,6 +54,7 @@ class NavBar extends Component{
               </Nav>
             </Navbar.Collapse>
           </Navbar>
+
         )
     }
 }

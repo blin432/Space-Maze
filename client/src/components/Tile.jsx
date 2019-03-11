@@ -29,5 +29,19 @@ class Tile extends Component {
         )
     }
 }
+let mapStateToProps = (state) =>(
+    { 
+        grid : state.grid,
+        myPosition: state.myPosition,
+        pointing : state.pointing,
+    
+    }
+)
 
+let mapDispatchToProps = (dispatch) =>(
+    {
+       addColor: () => dispatch({type:'ADDCOLOR'}),
+       skipColor: () => dispatch({type: 'SKIPCOLOR'})
+    }
+)
 export default Tile

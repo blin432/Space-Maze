@@ -4,19 +4,25 @@ import Field from './components/Field.jsx';
 import SignUp from './components/SignUp.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
+import Logout from './components/Logout.jsx';
 import {Switch, Route} from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
+import axios from 'axios';
 import {Navbar} from 'react-bootstrap';
 
 
+
 class App extends Component {
-  constructor(){
-    super()
-    this.state = { };
+  constructor(props){
+    super(props)
+    this.state = {
+      players : [],
+    }
   }
 
-  render() {
-    return (
+
+  render(){
+    return(
       <div style={{height:'100vh', width:'100%'}}>
            <NavBar/>
                    <Switch>
@@ -24,8 +30,8 @@ class App extends Component {
                        <Route exact path ="/showSignUp" component={SignUp}/>
                        <Route exact path ="/showLogIn" component={Login}/>
                        <Route exact path="/play" component={Field}/>
+                       <Route exact path="/LogOut" component={Logout}/>
                    </Switch>
-          {/* <Navbar sticky="bottom" className="justify-content-center" bg="primary" style={{color:'white'}}>A Digital Crafts Production</Navbar> */}
       </div>
     );
   }
