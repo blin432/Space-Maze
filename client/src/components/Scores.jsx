@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Modal,Row,Col } from 'react-bootstrap';
+import { Row,Col } from 'react-bootstrap';
 
 
 
 class Scores extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      
+    }
   }
   
 render() {

@@ -27,30 +27,31 @@ class Field extends Component {
         }
     }
     
-    componentDidMount() {
-        console.log(this.props.match);
-        //checks to see if user is logged in when page loads
-        // if it is logged in set username to current username
-        //if not go back to home page
-        axios.get('/users/status').then((response) =>{
-            console.log(response)
-            let status= response.data.isLoggedIn;
-            if (!status){
-                this.props.history.push('/');
-            }else {
-                
-                return this.setState({
-                    username:response.data.username
-                })
-            }
-        }).catch((error) => {
-                
-              console.log(error)
-            });
+
+
+    componentDidMount() { 
         document.addEventListener("keydown", (e) => this.move(e));
         this.spawnShip();
         
-
+        // console.log(this.props.match);
+        // //checks to see if user is logged in when page loads
+        // // if it is logged in set username to current username
+        // //if not go back to home page
+        // axios.get('/users/status').then((response) =>{
+        //     console.log(response)
+        //     let status= response.data.isLoggedIn;
+        //     if (!status){
+        //         this.props.history.push('/');
+        //     }else {
+                
+        //         return this.setState({
+        //             username:response.data.username
+        //         })
+        //     }
+        // }).catch((error) => {
+                
+        //       console.log(error)
+        //     });
         
         
     }
@@ -59,8 +60,7 @@ class Field extends Component {
         document.removeEventListener("keydown", (e) => this.move(e));
     }
 
-    //////////
-    //click event to post high score
+
     postHighScore(){
         let username = this.state.username;
         let points = this.state.time;
@@ -118,18 +118,21 @@ class Field extends Component {
           
         switch( keyCode ) {
             case 37:
+                console.log(this.state.myPosition)
                 if(this.state.myPosition % 5 === 0){
                     return
                 }
                 this.calculateNewPosition(-1,left);
                 break;
             case 38:
+            console.log(this.state.myPosition)
                 if(this.state.myPosition -5 < 0 ){
                     return
                 }
                 this.calculateNewPosition(-5,up)
                 break;
             case 39:
+            console.log(this.state.myPosition)
                 for(let i = this.state.myPosition; i >= 4; i-=5){
                     if(i == 4 ){ 
                         return
@@ -138,6 +141,7 @@ class Field extends Component {
                 this.calculateNewPosition(+1,right)
                 break;
             case 40:
+            console.log(this.state.myPosition)
                 if(this.state.myPosition + 5 > this.state.grid.length){
                     return
                 }
@@ -151,6 +155,7 @@ class Field extends Component {
     render(){
         const handleHide = () => this.setState({ show: false });
         const handleShow = () => this.setState({ show: true });
+        
         let field = this.state.grid.map((tile,i) => 
         <Col key={i} style={{margin : '5px'}}>
         {tile === 0 || tile === 1 || tile===3? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
@@ -171,6 +176,7 @@ class Field extends Component {
                 <Button onClick={() => this.postHighScore()}>Post HighScore</Button>
 
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
+
                 <Row>{field}</Row >
                 <Alert show={this.state.show} onClose={handleHide} variant="success">
                     <Alert.Heading>How's it going?!</Alert.Heading>
@@ -192,4 +198,4 @@ class Field extends Component {
     }
 }
 
-export default Field
+export default Field;

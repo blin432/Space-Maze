@@ -28,6 +28,7 @@ class Login extends Component {
         this.setState({show:true})
       });
   }
+
   handleUsernameInput(input){
     this.setState({username: input})
   }
@@ -35,19 +36,21 @@ class Login extends Component {
   handlePasswordInput(input){
     this.setState({password: input})
   }
+
   handleHide(){
     this.setState({ show: false });
   }
   cancel(){
     this.props.history.push("/showSignUp");
   }
-//   
+
+
 render() {
   return (
-    <Container className="m-5 text-center">
+    <Container className="text-center" style={{maxWidth: '400px'}}>
       <Row>
-        <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-          <h3 className="m-3">Login To Play Now</h3>
+        <Col>
+          <h3 className="mt-5">Log In</h3>
           <Alert show={this.state.show}  onClose variant="danger">
                   <Alert.Heading>Error In Logging In</Alert.Heading>
                   <p>
@@ -60,6 +63,7 @@ render() {
                     </Button>
                   </div>
           </Alert>
+
           <Form onSubmit={(e) => this.login(e)}>
             <Form.Group >
                   <Form.Label>Username</Form.Label>
@@ -70,7 +74,7 @@ render() {
                   <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
             </Form.Group>
             <div className="d-flex justify-content-center" >
-              <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" type="submit"> Login</Button>
+              <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" type="submit"> Log In</Button>
               <Button style={{display:"block"}} className = "mt-3 ml-2"variant="outline-secondary" onClick={() => this.cancel()}> Cancel</Button>
             </div>
           </Form>
