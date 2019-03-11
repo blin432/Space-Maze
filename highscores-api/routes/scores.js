@@ -38,6 +38,7 @@ router.get('/user/:username', function (req, res, next) {
 
 // RECORD SCORE FOR LOGGED IN USER
 router.post('/record', function (req, res, next) {
+    console.log(req.user);
     if (!req.user) {
         res.status(400).send({
             error: "USER NOT LOGGED IN"

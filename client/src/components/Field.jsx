@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Container,Row, Col} from 'react-bootstrap';
+import {Container,Row, Col,Alert,Button} from 'react-bootstrap';
 import Player from './Player.jsx';
 import '../App.css';
 import up from '../up.png'
@@ -8,6 +8,8 @@ import left from '../left.png'
 import right from '../right.png'
 import  {lv1, lv2 ,lv3 ,lv4, lv5} from '../maps.js';
 import Tile from '../components/Tile.jsx';
+import Rock from '../Boundary.png';
+import Space from '../space.jpg';
 
 
 class Field extends Component {
@@ -16,34 +18,50 @@ class Field extends Component {
         this.state = {
             grid : lv5,
             myPosition: null,
-            pointing : up
+            pointing : up,
+            show:false
         }
     }
 
     componentDidMount() { 
         document.addEventListener("keydown", (e) => this.move(e));
-        this.spawn()
+        this.spawnShip();
+        
     }
     
     componentWillUnmount() {
         document.removeEventListener("keydown", (e) => this.move(e));
     }
 
-    spawn(){
+    spawnShip(){
         let newGrid = [...this.state.grid]
         let randomIndex = Math.floor(Math.random()*newGrid.length);
         newGrid[randomIndex] = 2;
+        newGrid[0]=3;
         this.setState({grid : newGrid, myPosition: randomIndex})
     }
-
+   
+   
+    handleClose() {
+        this.setState({ show: false });
+    }
+    
+    handleShow() {
+        this.setState({ show: true });
+    }
     calculateNewPosition(movement,pointTo){
         let updatedGrid = [...this.state.grid]
         let endPosition = this.state.myPosition+movement;
         if(updatedGrid[endPosition] === 1){
-            return
-        }
-        updatedGrid[endPosition] = updatedGrid[this.state.myPosition] 
-        updatedGrid[this.state.myPosition] = 0;
+            return 
+        } else if (updatedGrid[endPosition] === 0 || updatedGrid[endPosition] ===3 ){
+            if(updatedGrid[endPosition] ===3){
+                console.log("finished")
+                this.setState({ show: true });
+            }
+        updatedGrid[endPosition] = updatedGrid[this.state.myPosition];
+        updatedGrid[this.state.myPosition] = 0;}
+
         this.setState({grid : updatedGrid, myPosition: endPosition, pointing: pointTo})
     }
     
@@ -86,16 +104,33 @@ class Field extends Component {
     }
 
     render(){
-
+        const handleHide = () => this.setState({ show: false });
+        const handleShow = () => this.setState({ show: true });
+        
         let field = this.state.grid.map((tile,i) => 
         <Col key={i} style={{margin : '5px'}}>
-        {tile === 0 || tile === 1? <Tile passable={tile === 1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
+        {tile === 0 || tile === 1 || tile===3? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
         </Col>)
 
         return(
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
 
                 <Row>{field}</Row >
+                <Alert show={this.state.show} onClose={handleHide} variant="success">
+                    <Alert.Heading>How's it going?!</Alert.Heading>
+                    <p>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                        eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
+                        amet fermentum.
+                    </p>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={handleHide} variant="outline-success">
+                        Close me ya'll!
+                        </Button>
+                    </div>
+                </Alert>
+                
             </Container>
         )
     }
