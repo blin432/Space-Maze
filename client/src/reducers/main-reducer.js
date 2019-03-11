@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import { lv5 } from "../maps";
 import up from '../up.png'
 import down from '../down.png'
 import left from '../left.png'
 import right from '../right.png'
-
-=======
-let initState = {
->>>>>>> master
 
 let initState = {
     // grid : lv5,
