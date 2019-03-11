@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Form,InputGroup,FormControl,Container,Row,Col } from 'react-bootstrap';
+import { Button,Form,Container,Row,Col } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 // import './SignIn.css';
 import {data} from '../signUpData.js';
 
@@ -32,10 +33,10 @@ class SignUp extends Component {
   
   render() {
     return (
-      <Container className="m-5 text-center">
+      <Container className="text-center" xs={12} md={{ size: 4, offset: 8 }}  style={{maxWidth: '400px'}}>
         <Row>
-          <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-              <h3 className="m-3">Sign Up To Play Now</h3>
+          <Col className="mt-5">
+              <h3 className="mb-5">Sign Up</h3>
               <Form onSubmit={(e) => this.signUp(e)}>
                   <Form.Group controlId="formBasicEmail">
                         <Form.Label>Username</Form.Label>
@@ -45,10 +46,10 @@ class SignUp extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
                   </Form.Group>
-                  <Button className="m-4" type="submit">Complete Sign Up</Button>
+                  <Button className="m-4" type="submit">Register</Button>
                   <div className="m-4">
                     <p className= "m-4">Already a Member?</p>
-                    <Button className = "m-4" variant="outline-secondary" onClick={() => this.loginShow()}> Login in Here</Button>
+                    <NavLink to="/showLogIn"><Button variant="primary">Login</Button></NavLink>
                   </div>  
               </Form> 
          </Col>
