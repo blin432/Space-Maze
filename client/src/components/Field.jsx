@@ -9,7 +9,7 @@ import right from '../right.png'
 import  {lv1, lv2 ,lv3 ,lv4, lv5} from '../maps.js';
 import Tile from '../components/Tile.jsx';
 import GameTimer from '../components/Timer.jsx';
-// import console = require('console');
+
 
 
 class Field extends Component {
@@ -92,7 +92,7 @@ class Field extends Component {
 
         return(
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
-                <Row>{GameTimer}</Row>
+                <Row><GameTimer/></Row>
                 <Row>{field}</Row >
             </Container>
         )

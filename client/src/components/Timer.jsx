@@ -9,36 +9,34 @@ class GameTimer extends Component{
         super(props);
         this.state = {};
       }
-    
-      Start = (start) => () => {
-        console.log('My Start function');
-        start()
-     }
-    
 
     render(){ 
 
         return(
-            <Timer>
-            initialTime={55000}
-            startImmediately={true}
-        >
-            {({ start,stop}) => (
-                <React.Fragment>
-                    <div>
-                        <Timer.Minutes /> minutes
-                    </div>
-                    <div>{Timer}</div>
-                    <br />
-                    <div>
-                    <button onPress={this.Start(start)}>                        
-                    <p>{"start"}</p>    
-                    </button>
-                        <button onPress={stop}>Stop</button>
-                    </div>
-                </React.Fragment>
-            )}
-        </Timer>           
+            <Timer
+    initialTime={0}
+    startImmediately={false}
+    lastUnit="s"
+    // lastUnit="seconds"
+    // direction="backward"
+>
+    {({ start, resume, pause, stop, reset, timerState }) => (
+        <React.Fragment>
+            <div>
+                <Timer.Seconds /> seconds
+            </div>
+            <div style={{color:"white"}}>{timerState}</div>
+            <br />
+            <div>
+                <button onClick={start}>Start</button>
+                <button onClick={pause}>Pause</button>
+                <button onClick={resume}>Resume</button>
+                <button onClick={stop}>Stop</button>
+                <button onClick={reset}>Reset</button>
+            </div>
+        </React.Fragment>
+    )}
+</Timer>        
         )
     }
 }
