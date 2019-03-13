@@ -1,28 +1,32 @@
 import React,{Component} from 'react';
-import {Container,Row, Col,Alert,Button} from 'react-bootstrap';
+import {Navbar, Nav, Container, Row, Col,} from 'react-bootstrap';
 import Player from './Player.jsx';
 import '../App.css';
 import up from '../up.png'
 import down from '../down.png'
 import left from '../left.png'
 import right from '../right.png'
-import  {lv1, lv2 ,lv3 ,lv4, lv5} from '../maps.js';
+import  {lv1} from '../maps.js';
 import Tile from '../components/Tile.jsx';
-import Rock from '../Boundary.png';
-import Space from '../space.jpg';
+// import Rock from '../Boundary.png';
+// import Space from '../space.jpg';
 import axios from 'axios';
 import Highscores from './Highscores.jsx';
+import PropTypes from 'prop-types';
+import RulesModal from './RulesModal.jsx';
+import {items} from '../items.js';
 
 
 class Field extends Component {
     constructor(props){
         super(props)
         this.state = {
-            grid : lv5,
+            grid : lv1,
             myPosition: null,
             pointing : up,
             show:false,
             username:'',
+            modalShow : true,
             time:123 ///harded code, after refactoring will have to set state 
         }
     }
@@ -90,9 +94,6 @@ class Field extends Component {
         // newGrid[randomIndex] = 2;
         // newGrid[0]=3;
         // this.setState({grid : newGrid, myPosition: randomIndex})
-        
-        
-        
     }
     
     handleShow() {
@@ -134,7 +135,7 @@ class Field extends Component {
             case 39:
             console.log(this.state.myPosition)
                 for(let i = this.state.myPosition; i >= 4; i-=5){
-                    if(i == 4 ){ 
+                    if(i === 4 ){ 
                         return
                     }
                 }
@@ -154,48 +155,66 @@ class Field extends Component {
 
     render(){
         const handleHide = () => this.setState({ show: false });
-        const handleShow = () => this.setState({ show: true });
-        
+        // const handleShow = () => this.setState({ show: true });
+        let modalClose = () => this.setState({ modalShow: false });
+
         let field = this.state.grid.map((tile,i) => 
         <Col key={i} style={{margin : '5px'}}>
-        {tile === 0 || tile === 1 || tile===3? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
+        {tile === 0 || tile === 1 || tile===3 ? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
         </Col>)
 
         return(
-            <div>
-                {/* rendering highScores here */}
-            <Container className="text-center" style={{maxWidth: 400, backgroundColor:'lightblue'}}>
-                <Col  classname="text-center" style={{margin : '5px'}}>
-
-                    {/* Highscores has a Scores compononent that is passed down a state of scores in an array */}
-                    <Highscores/>
-                </Col>
-            </Container>
-
-              {/* added this button to post highscores, afer refactoring will probably be in a prompt/alert */}
-                <Button onClick={() => this.postHighScore()}>Post HighScore</Button>
-
-            <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
-
-                <Row>{field}</Row >
-                <Alert show={this.state.show} onClose={handleHide} variant="success">
-                    <Alert.Heading>How's it going?!</Alert.Heading>
-                    <p>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                        eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
-                        amet fermentum.
-                    </p>
-                    <hr />
-                    <div className="d-flex justify-content-end">
-                        <Button onClick={(e)=>this.handleClose(e)} variant="outline-success">
-                        Close me ya'll!
-                        </Button>
+                <div className="container-fluid" style={{margin : 0, padding: 0, maxHeight : '700px'}}>
+                <Row className="justify-content-center" style={{height: 80, width : '100%', backgroundColor : '#DCDCDC', margin : 0, padding: 0}}>
+                <h3 className="m-4">Timer</h3>
+                </Row>
+                <Container>
+                <Row style={{margin : 0, padding: 0}}>
+                <Col className="justify-content-center mt-3" sm={12} md={{size:3}} style={{ margin : 0, padding: 0}}>
+                <div className="d-none d-md-block">
+                    <h3 className="text-center">Tips</h3>
                     </div>
-                </Alert>
-            </Container>
-            </div>
+                    <Navbar expand="md">
+                    <div className="d-md-none d-block">
+                    <h3 className="text-center">Tips</h3>
+                    </div>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ml-auto">
+                            <Row className="text-center">
+                                {items.map((item,i) => 
+                                <div key={i} className="m-2">
+                                    <img src={item.img} alt="item" height={60} width={60}/>
+                                    <p>{item.description}</p>
+                                </div>)}
+                            </Row>
+                        </Nav>
+                    </Navbar.Collapse>
+                    </Navbar>
+                    
+                    <div className="d-md-none">
+                    <Highscores />
+                    </div>
+                    </Col>
+
+                    <Col sm={12} md={{size:6}} style={{backgroundColor:'black', overflow : 'auto', maxHeight : '960px',maxWidth:400}}>
+                        {field}
+                    </Col>
+
+                    <Col sm={12} md={3}>
+                        <div className="d-none d-md-block">
+                            <Highscores />
+                        </div>
+                    </Col>
+                </Row>
+                </Container>
+                </div>
         )
     }
 }
 
 export default Field;
+
+
+
+

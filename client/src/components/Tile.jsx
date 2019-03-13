@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Rock from '../Boundary.png';
 import Space from '../space.jpg';
-import Asteroid from '../asteroid.png';
+// import Asteroid from '../asteroid.png';
 import Down from '../down.png';
 class Tile extends Component {
     constructor(props){
@@ -25,23 +25,23 @@ class Tile extends Component {
             
         };
         return(
-        <img style={{ backgroundColor : 'black'}} src={renderedObject() } style={{height: 30, width: 30 }} alt={'tile'}/>
+        <img src={renderedObject() } style={{height: 30, width: 30, backgroundColor : 'black' }} alt={'tile'}/>
         )
     }
 }
-let mapStateToProps = (state) =>(
-    { 
-        grid : state.grid,
-        myPosition: state.myPosition,
-        pointing : state.pointing,
+// let mapStateToProps = (state) =>(
+//     { 
+//         grid : state.grid,
+//         myPosition: state.myPosition,
+//         pointing : state.pointing,
     
-    }
-)
+//     }
+// )
 
-let mapDispatchToProps = (dispatch) =>(
-    {
-       addColor: () => dispatch({type:'ADDCOLOR'}),
-       skipColor: () => dispatch({type: 'SKIPCOLOR'})
-    }
-)
+// let mapDispatchToProps = (dispatch) =>(
+//     {
+//        addColor: () => dispatch({type:'ADDCOLOR'}),
+//        skipColor: () => dispatch({type: 'SKIPCOLOR'})
+//     }
+// )
 export default Tile

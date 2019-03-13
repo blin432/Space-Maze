@@ -14,7 +14,7 @@ class RulesModal extends Component {
           <Modal.Body>
             <Container>
               <Row className="show-grid">
-              {items.map((item,i) => <Col key={i} xs={12} md={12}><img className="m-2" src={item.img} height="50" width="50"/><br></br>{item.description}</Col>)}
+              {items.map((item,i) => <Col key={i} xs={12} md={12}><img className="m-2" src={item.img} height="50" width="50" alt="img"/><br></br>{item.description}</Col>)}
               </Row>
             </Container>
           </Modal.Body>

@@ -1,23 +1,23 @@
 export const navOpts = [
     {
         name : "Log In",
-        isUserLoggedIn : false,
+        isLoggedIn : false,
         route: "/showLogIn"
 
     },
     {
         name : "Sign Up",
-        isUserLoggedIn : false,
+        isLoggedIn : false,
         route: "/showSignUp"
     },
-    {
-        name : "Log out",
-        isUserLoggedIn : true,
-        route: "/logOut"
-    },
+    // {
+    //     name : "Log out",
+    //     isLoggedIn : true,
+    //     route: "/logOut"
+    // },
     {
         name : "Play",
-        isUserLoggedIn : true,
+        isLoggedIn : true,
         route: "/play"
     }
 ]

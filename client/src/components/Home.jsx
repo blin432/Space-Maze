@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Button,Form,InputGroup,FormControl,Container,Row,Col,Jumbotron,Navbar } from 'react-bootstrap';
+import { Button,Jumbotron } from 'react-bootstrap';
 import background from '../spaceBackground.gif';
 import RulesModal from './RulesModal.jsx';
 
@@ -14,7 +14,7 @@ class Home extends Component{
 
     render(){    
         
-        let modalClose = () => this.setState({ modalShow: false });
+         let modalClose = () => this.setState({ modalShow: false });
 
         return (
             <Jumbotron className="mb-0" style={{backgroundImage : `url(${background})`,backgroundSize:'cover',backgroundPosition:'center', height: '100%', marginTop: '-10px'}}>

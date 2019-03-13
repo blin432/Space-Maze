@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Row,Col } from 'react-bootstrap';
+// import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
 
 
 
 class Scores extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      
-    }
-  }
   
 render() {
-   console.log(this.props)
+    console.log(this.props)
   return (
-        <Row className='d-flex justify-content-between mt-1 mb-1'>
-                <div className="username text-center">
-                    <h5>{this.props.username}</h5>
-                </div>
-                <div className="score text-center mr-5 " >
-                    <p>{this.props.points}</p>
-                </div>
+        <Row className="text-center">
+          <Col >
+              <p>{this.props.username}</p>
+          </Col>
+          <Col>
+              <p>{this.props.points}</p>
+          </Col>
         </Row>
     )
   }
