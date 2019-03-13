@@ -182,7 +182,6 @@ class Field extends Component {
                 <Button onClick={() => this.postHighScore()}>Post HighScore</Button>
 
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
-                <Row>{field}</Row >
                 <Alert show={this.state.show} onClose={handleHide} variant="success">
                     <Alert.Heading>How's it going?!</Alert.Heading>
                     <p>
@@ -197,9 +196,11 @@ class Field extends Component {
                         </Button>
                     </div>
                 </Alert>
+                <Row>{field}</Row >
+                
             </Container>
 
-           {/* component for mobile arrow functions */}
+           {/* component for mobile arrow functions passed the "move" function down to MobileButton */}
             <MobileButton move = {this.move.bind(this)}/>
           
             </div>
