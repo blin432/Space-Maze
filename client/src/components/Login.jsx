@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Form,InputGroup,FormControl,Container,Row,Col } from 'react-bootstrap';
+import { Button,Form,Container,Row,Col,Alert } from 'react-bootstrap';
+import {withRouter } from 'react-router-dom';
+
 // import './SignIn.css';
-import Modal from 'react-bootstrap/Modal';
-import {data} from '../signUpData.js';
+// import Modal from 'react-bootstrap/Modal';
+// import {data} from '../signUpData.js';
 
 class Login extends Component {
   constructor(props){
@@ -11,16 +13,24 @@ class Login extends Component {
     this.state={
       username: '',
       password: '',
+      errMsg: ''
     }
   }
+
+
   login(e){
     e.preventDefault()
     let { username, password } = this.state
-      axios.post('/users/login', { 
-      username, 
-      password}).then((response) => console.log(response))
-      .catch((error) => console.log(error))
+    if(username < 1 || password < 1){
+      this.setState({errMsg : 'Please fill in both input fields'})
+      return
+    }else{
+      axios.post('/users/login', { username, password})
+      .then(() => this.props.signin())
+      .catch(() => this.setState({errMsg:'user not found'}))
+    }
   }
+
   handleUsernameInput(input){
     this.setState({username: input})
   }
@@ -28,26 +38,33 @@ class Login extends Component {
   handlePasswordInput(input){
     this.setState({password: input})
   }
-  
-//   
+
+
 render() {
+
+  let {errMsg} = this.state
+
   return (
-    <Container className="m-5 text-center">
+    <Container className="text-center" style={{maxWidth: '400px'}}>
       <Row>
-        <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-          <h3 className="m-3">Login To Play Now</h3>
+        <Col>
+          <h3 className="mt-5">Log In</h3>
+          {errMsg ? <Alert variant="danger">{errMsg}</Alert> : null }
+
           <Form onSubmit={(e) => this.login(e)}>
-            <Form.Group controlId="formBasicEmail">
+
+            <Form.Group >
                   <Form.Label>Username</Form.Label>
                   <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
+
+            <Form.Group >
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
             </Form.Group>
+
             <div className="d-flex justify-content-center" >
-              <Button style={{display:"block"}} className = "mt-3 mr-2"variant="outline-secondary" type="submit"> Login</Button>
-              <Button style={{display:"block"}} className = "mt-3 ml-2"variant="outline-secondary" onClick={() => this.loginShow()}> Cancel</Button>
+              <Button style={{display:"block"}} className = "m-2" variant="primary" type="submit"> Log In</Button>
             </div>
           </Form>
         </Col>
@@ -57,5 +74,5 @@ render() {
 }
 }
 
-export default Login;
+export default withRouter(Login);
 

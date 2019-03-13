@@ -1,25 +1,28 @@
 import React, {Component} from 'react';
 import '../App.css';
-import { Button,Form,InputGroup,FormControl,Container,Row,Col } from 'react-bootstrap';
+import { Button,Jumbotron } from 'react-bootstrap';
+import background from '../spaceBackground.gif';
+import RulesModal from './RulesModal.jsx';
 
 class Home extends Component{
    
     constructor(props){
         super(props)
-        this.state={
-          
+        this.state={ modalShow : false }
         }
-    }
+    
 
-    render(){
+    render(){    
+        
+         let modalClose = () => this.setState({ modalShow: false });
+
         return (
-
-            <Container className="m-5 text-center">
-                <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 2 }}>
-                    <h1 className="m-3">Welcome to The Reactor</h1>
-                    <h3 className="m-3">Sign Up to start playing!</h3>
-                    </Col>    
-            </Container>
+            <Jumbotron className="mb-0" style={{backgroundImage : `url(${background})`,backgroundSize:'cover',backgroundPosition:'center', height: '100%', marginTop: '-10px'}}>
+            <h1 style={{color:'white'}}>Space Maze</h1>
+            <p style={{color:'white'}}>See how fast you can beat each level and climb your way up the leaderboard</p>
+            <Button variant="primary" onClick={() => this.setState({ modalShow: true })}>Rules</Button>
+            <RulesModal show={this.state.modalShow} onHide={modalClose} />
+          </Jumbotron>
           );
         }
       }

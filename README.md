@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-# The Reactor 
+# Space Maze
 
-Multi-player shooting game
+See how fast you can get through each space and climb your way up the leader board.
 
 Team :
 
 - Hawazin Abdullah
 - Benjamin Lin
 - Faris Huskovic
-=======
-# The-Reactor
-
-Multi-player shooting game
-
-### Team
-
-- Hawazin Abdullah
-- Benjamin Lin
-- Faris Huskovic
->>>>>>> master
