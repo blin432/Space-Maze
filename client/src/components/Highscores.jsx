@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Modal,Row,Col,Container } from 'react-bootstrap';
+import { Navbar, Nav, Row,Col} from 'react-bootstrap';
 import Scores from './Scores.jsx';
 
 
@@ -15,7 +15,7 @@ class Highscores extends Component {
   async componentDidMount(){
       
     axios.get('/scores/highscores').then((response)=>{
-      console.log(response);
+      // console.log(response);
       this.setState({
           scores:response.data
       })
@@ -24,27 +24,39 @@ class Highscores extends Component {
 
    
 render() {
-    let scoresRendered = this.state.scores.map((score,i)=> <Scores key={i} {...score} />);
+    let { scores } = this.state
+    let scoresRendered = this.state.scores.map((data,i)=> <Scores key={i} {...data} />);
+    let players = scores.map((player,i) => <p key={i}>{player.username}</p>)
+    let times = scores.map((score,i) => <p key={i}>{score.points}</p>)
 
   return (
-      <div>
-        <Col style={{margin:'0 auto'}}>
-            <h4 className="pt-3" style={{textDecoration:"underline"}}>Leader Board</h4>
-            <Row className='d-flex justify-content-between'>
-                <div className="username text-center ml-3">
-                    <h5 style={{textDecoration:'underline'}}>Player</h5>
-                </div>
-                <div className="score text-center mr-3" >
-                    <h5 style= {{textDecoration:'underline'}}>Best Time</h5>
-                </div>
-            </Row>
-            {scoresRendered}  
-        </Col>
-        
-    </div>
+<Col className="justify-content-center mt-3" style={{ margin : 0, padding: 0}}>
+<Row className="d-none d-md-block"><h3 className="m-3">lv 1 Leader Board</h3></Row>
+<Navbar expand="md" className="justify-content-between">
+<Row className="d-md-none d-block"><h3 className="m-3">lv 1 Leader Board</h3></Row>
+<Navbar.Toggle aria-controls="basic-navbar-nav"/>
+<Navbar.Collapse id="basic-navbar-nav">
+    <Nav>
+      <Row className="justify-content-between text-center">
+      <Col>
+          <h5 style={{textDecoration:'underline'}}>Player</h5>
+          {players}
+          </Col>
+          <Col>
+          </Col>
+          <Col>
+          <h5 style= {{textDecoration:'underline'}}>Score</h5>
+          {times}
+          </Col>
+      </Row>
+    </Nav>
+</Navbar.Collapse>
+</Navbar>
+</Col>
   );
 }
 }
 
 export default Highscores;
+
 
