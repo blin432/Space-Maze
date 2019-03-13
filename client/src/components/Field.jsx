@@ -12,6 +12,8 @@ import Rock from '../Boundary.png';
 import Space from '../space.jpg';
 import axios from 'axios';
 import Highscores from './Highscores.jsx';
+import MobileButton from './MobileButton.jsx';
+import './MobileButton.css'
 
 
 class Field extends Component {
@@ -23,11 +25,13 @@ class Field extends Component {
             pointing : up,
             show:false,
             username:'',
-            time:123 ///harded code, after refactoring will have to set state 
+            time:123, ///harded code, after refactoring will have to set state 
+           
         }
     }
     
     componentDidMount() {
+        
         console.log(this.props.match);
         //checks to see if user is logged in when page loads
         // if it is logged in set username to current username
@@ -57,8 +61,12 @@ class Field extends Component {
     
     componentWillUnmount() {
         document.removeEventListener("keydown", (e) => this.move(e));
+        ///
+        
     }
 
+
+    
     //////////
     //click event to post high score
     postHighScore(){
@@ -115,13 +123,16 @@ class Field extends Component {
     } 
     
     move({keyCode}){
+        console.log({keyCode});
           
         switch( keyCode ) {
+
             case 37:
                 if(this.state.myPosition % 5 === 0){
                     return
                 }
                 this.calculateNewPosition(-1,left);
+                console.log(keyCode);
                 break;
             case 38:
                 if(this.state.myPosition -5 < 0 ){
@@ -147,17 +158,17 @@ class Field extends Component {
                 break;
         }
     }
-
+    
     render(){
         const handleHide = () => this.setState({ show: false });
         const handleShow = () => this.setState({ show: true });
+        
         let field = this.state.grid.map((tile,i) => 
         <Col key={i} style={{margin : '5px'}}>
         {tile === 0 || tile === 1 || tile===3? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
         </Col>)
-
-        return(
-            <div>
+        
+           return ( <div>
                 {/* rendering highScores here */}
             <Container className="text-center" style={{maxWidth: 400, backgroundColor:'lightblue'}}>
                 <Col  classname="text-center" style={{margin : '5px'}}>
@@ -187,8 +198,15 @@ class Field extends Component {
                     </div>
                 </Alert>
             </Container>
+
+           {/* component for mobile arrow functions */}
+            <MobileButton move = {this.move.bind(this)}/>
+          
             </div>
-        )
+           )
+    
+            
+        
     }
 }
 
