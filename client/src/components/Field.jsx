@@ -91,10 +91,12 @@ class Field extends Component {
         </Col>)
 
         return(
+            <div >
+            <Row style={{margin:'0 auto',width:'380px'}}> <Col style={{margin:'0 auto'}}><GameTimer/></Col></Row>
             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
-                <Row><GameTimer/></Row>
-                <Row>{field}</Row >
+            <Row>{field}</Row >
             </Container>
+            </div>
         )
     }
 }

@@ -13,16 +13,15 @@ class GameTimer extends Component{
     render(){ 
 
         return(
+            <div style={{backgroundColor: "white",width:'500px', margin:'0'}}>
             <Timer
     initialTime={0}
     startImmediately={false}
-    lastUnit="s"
-    // lastUnit="seconds"
-    // direction="backward"
 >
     {({ start, resume, pause, stop, reset, timerState }) => (
         <React.Fragment>
             <div>
+                <Timer.Minutes /> minutes
                 <Timer.Seconds /> seconds
             </div>
             <div style={{color:"white"}}>{timerState}</div>
@@ -36,7 +35,8 @@ class GameTimer extends Component{
             </div>
         </React.Fragment>
     )}
-</Timer>        
+</Timer>   
+</div>     
         )
     }
 }
