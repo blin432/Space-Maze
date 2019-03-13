@@ -8,6 +8,7 @@ import left from '../left.png'
 import right from '../right.png'
 import  {lv1} from '../maps.js';
 import Tile from '../components/Tile.jsx';
+import GameTimer from '../components/Timer.jsx';
 // import Rock from '../Boundary.png';
 // import Space from '../space.jpg';
 import axios from 'axios';
@@ -164,9 +165,10 @@ class Field extends Component {
         </Col>)
 
         return(
+
                 <div className="container-fluid" style={{margin : 0, padding: 0, maxHeight : '700px'}}>
                 <Row className="justify-content-center" style={{height: 80, width : '100%', backgroundColor : '#DCDCDC', margin : 0, padding: 0}}>
-                <h3 className="m-4">Timer</h3>
+                <GameTimer/>
                 </Row>
                 <Container>
                 <Row style={{margin : 0, padding: 0}}>
@@ -214,7 +216,4 @@ class Field extends Component {
 }
 
 export default Field;
-
-
-
 
