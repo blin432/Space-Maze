@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../App.css';
 import Timer from 'react-compound-timer';
+import {Button} from 'react-bootstrap';
 
 
 class GameTimer extends Component{
@@ -27,12 +28,9 @@ class GameTimer extends Component{
             <div style={{color:"white"}}>{timerState}</div>
             <br />
             <div>
-                <button onClick={start}>Start</button>
-                <button onClick={pause}>Pause</button>
-                <button onClick={resume}>Resume</button>
-                <button onClick={stop}>Stop</button>
-                <button onClick={reset}>Reset</button>
-            </div>
+                <Button onClick={start}>Start</Button>
+                <Button onClick={stop}>Stop</Button>
+                </div>
         </React.Fragment>
     )}
 </Timer>   
