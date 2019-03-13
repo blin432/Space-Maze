@@ -18,6 +18,7 @@
     "npm": "^6.8.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "pg-promise": "^8.5.6"
+    "pg-promise": "^8.5.6",
+    "react-native": "^0.58.6"
   }
 }

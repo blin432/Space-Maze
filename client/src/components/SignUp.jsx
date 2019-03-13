@@ -1,41 +1,39 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button,Form,InputGroup,FormControl,Container,Row,Col,Alert } from 'react-bootstrap';
-// import './SignIn.css';
-import {data} from '../signUpData.js';
-import AlertError from './AlertError.jsx'
+import { Button,Form,Container,Row,Col,Alert } from 'react-bootstrap';
+import { NavLink, withRouter } from 'react-router-dom';
 
 class SignUp extends Component {
-  constructor(props){
-    super(props)
-    this.state={
+    state={
       username: '',
       password: '',
-      show:false
+      errMsg: ''
     }
-  }
-// function handles posting users to the database,
-// if that action is successfull then login user and also
-//redirect to play page
+
   signUp(e){
     e.preventDefault()
+    console.log(this.props.history);
     let { username, password } = this.state
-      axios.post('/users/register', { 
-      username, 
-      password}).then((response) =>{
-        console.log(response)
-        axios.post('/users/login', { 
-          username, 
-          password}).then((response) =>{
-            this.props.history.push("/play")
-            console.log(response)
-          }) .catch((error) =>{console.log(error)
-          });
-      }).catch((error) => {
-        console.log(error)
-        this.setState({show:true})
-      });
+    console.log(username);
+    console.log(password);
+    if(username < 1 || password < 1){
+      this.setState({errMsg:'Please fill in both input fields'})
+      return
+    }else if(password.length < 8){
+      this.setState({errMsg:'Password must be at least 8 characters'})
+      return
+    }else{
+      axios.post('/users/register', { username, password})
+      .then((response) => {
+          console.log(response)})
+          .then(()=> axios.post('/users/login',{ username, password}))
+            .then(() => this.props.signin())
+            .catch((err) => console.log(err))
+      .catch((err)=> console.log(err));
+
   }
+}
+
 
   handleUsernameInput(input){
     this.setState({username: input})
@@ -44,42 +42,34 @@ class SignUp extends Component {
   handlePasswordInput(input){
     this.setState({password: input})
   }
-  handleHide(){
-    this.setState({ show: false });
-  }
+
+
   render() {
+
+    let {errMsg} = this.state
     
     return (
-      <Container className="m-5 text-center">
+      <Container className="text-center" xs={12} md={{ size: 4, offset: 8 }}  style={{maxWidth: '400px'}}>
         <Row>
-          <Col xs={12} sm={12} md={{ size: 8, offset: 2 }} lg={{ size: 8, offset: 4 }}>
-              <h3 className="m-3">Sign Up To Play Now</h3>
-              <Alert show={this.state.show}  onClose variant="danger">
-                  <Alert.Heading>Error In Signing In</Alert.Heading>
-                  <p>
-                    Username Already Exists/Enter Username and Password
-                  </p>
-                  <hr />
-                  <div className="d-flex justify-content-end">
-                    <Button onClick={() => this.handleHide()} variant="outline-success">
-                      Okay
-                    </Button>
-                  </div>
-              </Alert>
-              <Form onSubmit={(e) => this.signUp(e)}>
-              
+          <Col className="mt-5">
+              <h3 className="mb-5">Sign Up</h3>
+              {errMsg ? <Alert variant="danger">{this.state.errMsg}</Alert> : null }
+               <Form onSubmit={(e) => this.signUp(e)}>
+
                   <Form.Group >
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
                   </Form.Group>
+
                   <Form.Group >
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" value={this.state.password} onChange={(e) => this.handlePasswordInput(e.target.value)} />
                   </Form.Group>
-                  <Button className="m-4" type="submit">Complete Sign Up</Button>
-                  <div className="m-4">
-                    <p className= "m-4">Already a Member? <a className="ml-5" href='/showLogin'>Log In Here</a></p>
-                  </div>  
+
+                  <Button className="m-4" type="submit">Register</Button>
+
+                    <p className= "m-1">Already a Member?</p>
+                    <NavLink to="/showLogIn"><Button variant="primary">Login</Button></NavLink> 
               </Form> 
          </Col>
         </Row>
@@ -88,4 +78,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

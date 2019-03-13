@@ -1,9 +1,8 @@
-import { lv5 } from "../maps";
-import up from '../up.png'
-import down from '../down.png'
-import left from '../left.png'
-import right from '../right.png'
-
+// import { lv5 } from "../maps";
+// import up from '../up.png'
+// import down from '../down.png'
+// import left from '../left.png'
+// import right from '../right.png'
 
 let initState = {
     // grid : lv5,
