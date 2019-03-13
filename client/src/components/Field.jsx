@@ -13,9 +13,12 @@ import GameTimer from '../components/Timer.jsx';
 // import Space from '../space.jpg';
 import axios from 'axios';
 import Highscores from './Highscores.jsx';
+import MobileButton from './MobileButton.jsx';
+import './MobileButton.css'
 import PropTypes from 'prop-types';
 import RulesModal from './RulesModal.jsx';
 import {items} from '../items.js';
+
 
 
 class Field extends Component {
@@ -27,42 +30,39 @@ class Field extends Component {
             pointing : up,
             show:false,
             username:'',
-            modalShow : true,
-            time:123 ///harded code, after refactoring will have to set state 
+            time:123,
+            modalShow : true
         }
     }
+
+              
+    componentDidMount(){
+        console.log(this.props.match);
+        axios.get('/users/status').then((response) =>{
+            console.log(response)
+            let status= response.data.isLoggedIn;
+            if (!status){
+                this.props.history.push('/');
+            }else {
+                
+             this.setState({username:response.data.username})
+             document.addEventListener("keydown", (e) => this.move(e));
+             this.spawnShip();
+            }
+        }).catch((error) => {
+                
+              console.log(error)
+            });
+    }
+}
     
 
 
-    componentDidMount() { 
-        document.addEventListener("keydown", (e) => this.move(e));
-        this.spawnShip();
-        
-        // console.log(this.props.match);
-        // //checks to see if user is logged in when page loads
-        // // if it is logged in set username to current username
-        // //if not go back to home page
-        // axios.get('/users/status').then((response) =>{
-        //     console.log(response)
-        //     let status= response.data.isLoggedIn;
-        //     if (!status){
-        //         this.props.history.push('/');
-        //     }else {
-                
-        //         return this.setState({
-        //             username:response.data.username
-        //         })
-        //     }
-        // }).catch((error) => {
-                
-        //       console.log(error)
-        //     });
-        
-        
-    }
+
     
     componentWillUnmount() {
         document.removeEventListener("keydown", (e) => this.move(e));
+        
     }
 
 
@@ -117,14 +117,17 @@ class Field extends Component {
     } 
     
     move({keyCode}){
+        console.log({keyCode});
           
         switch( keyCode ) {
+
             case 37:
                 console.log(this.state.myPosition)
                 if(this.state.myPosition % 5 === 0){
                     return
                 }
                 this.calculateNewPosition(-1,left);
+                console.log(keyCode);
                 break;
             case 38:
             console.log(this.state.myPosition)
@@ -153,10 +156,12 @@ class Field extends Component {
                 break;
         }
     }
-
+    
     render(){
         const handleHide = () => this.setState({ show: false });
-        // const handleShow = () => this.setState({ show: true });
+
+        const handleShow = () => this.setState({ show: true });
+        
         let modalClose = () => this.setState({ modalShow: false });
 
         let field = this.state.grid.map((tile,i) => 
@@ -164,7 +169,9 @@ class Field extends Component {
         {tile === 0 || tile === 1 || tile===3 ? <Tile  finish={i===0 ? false : true} passable={tile===1 ? false : true}/> : <Player pointing={this.state.pointing}/>}
         </Col>)
 
+        
         return(
+
 
                 <div className="container-fluid" style={{margin : 0, padding: 0, maxHeight : '700px'}}>
                 <Row className="justify-content-center" style={{height: 80, width : '100%', backgroundColor : '#DCDCDC', margin : 0, padding: 0}}>
@@ -202,18 +209,51 @@ class Field extends Component {
                     <Col sm={12} md={{size:6}} style={{backgroundColor:'black', overflow : 'auto', maxHeight : '960px',maxWidth:400}}>
                         {field}
                     </Col>
-
-                    <Col sm={12} md={3}>
+                  
+                                      <Col sm={12} md={3}>
                         <div className="d-none d-md-block">
                             <Highscores />
                         </div>
                     </Col>
                 </Row>
+                <MobileButton move = {this.move.bind(this)}/>
                 </Container>
                 </div>
         )
+
     }
 }
 
 export default Field;
+
+
+//             <Container style={{maxWidth: 400, backgroundColor : 'black'}}>
+//                 <Alert show={this.state.show} onClose={handleHide} variant="success">
+//                     <Alert.Heading>How's it going?!</Alert.Heading>
+//                     <p>
+//                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+//                         eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
+//                         amet fermentum.
+//                     </p>
+//                     <hr />
+//                     <div className="d-flex justify-content-end">
+//                         <Button onClick={(e)=>this.handleClose(e)} variant="outline-success">
+//                         Close me ya'll!
+//                         </Button>
+//                     </div>
+//                 </Alert>
+//                 <Row>{field}</Row >
+                
+//             </Container>
+
+//            {/* component for mobile arrow functions passed the "move" function down to MobileButton */}
+//             <MobileButton move = {this.move.bind(this)}/>
+          
+//             </div>
+//            )
+    
+            
+        
+
+
 
