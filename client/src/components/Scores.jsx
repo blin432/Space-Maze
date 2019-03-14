@@ -10,7 +10,7 @@ render() {
     console.log(this.props)
   return (
         <Row className="text-center">
-          <Col >
+          <Col>
               <p>{this.props.username}</p>
           </Col>
           <Col>
