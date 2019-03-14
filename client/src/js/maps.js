@@ -1,10 +1,10 @@
 import rock from '../images/Boundary.png';
 import space from '../images/space.jpg';
 import finish from '../images/finishline.gif'
-import player from '../components/Player.jsx';
+import Player from '../components/Player.jsx';
 
 export const levels = [
-        [player,space,space,space,space,
+        [space,space,Player,space,space,
         rock,space,rock,rock,space,
         space,space,rock,rock,space,
         rock,rock,space,space,space,
@@ -28,10 +28,10 @@ export const levels = [
         space,space,rock,space,space,
         rock,space,space,space,rock,
         rock,rock,space,rock,rock,
-        space,space,'finish',space,space],
+        finish,space,space,space],
 
-        [player,rock,rock,rock,rock,
-        space,rock,space,rock,space,
+        [rock,rock,rock,rock,rock,
+        Player,rock,space,rock,space,
         space,space,space,rock,space,
         space,rock,space,space,rock,
         space,rock,space,rock,space,
@@ -54,9 +54,9 @@ export const levels = [
         space,rock,space,space,space,
         rock,space,space,rock,space,
         space,space,rock,space,space,
-        space,rock,rock,'finish',rock],
+        finish,rock,rock,rock,rock],
 
-        [space,space,space,space,player,
+        [space,space,space,space,Player,
         space,rock,rock,rock,rock,
         space,space,space,space,space,
         rock,space,space,rock,rock,
@@ -80,9 +80,9 @@ export const levels = [
         rock,rock,space,rock,space,
         space,space,space,rock,space,
         space,rock,rock,space,space,
-        'finish',rock,rock,space,rock],
+        finish,rock,rock,space,rock],
 
-        [rock,rock,space,rock,rock,
+        [rock,rock,finish,rock,rock,
         space,space,rock,space,rock,
         space,rock,rock,space,space,
         space,space,space,rock,space,
@@ -106,10 +106,10 @@ export const levels = [
         rock,rock,space,rock,space,
         space,space,space,space,space,
         space,rock,rock,rock,rock,
-        space,space,space,space,player],
+        space,space,space,space,Player],
 
         [rock,rock,rock,rock,rock,
-        player,space,space,space,space,
+        Player,space,space,space,space,
         rock,rock,rock,rock,space,
         space,space,space,rock,space,
         space,rock,space,rock,space,

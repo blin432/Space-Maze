@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {Container, Row, Col,} from 'react-bootstrap';
-import player from './Player.jsx';
 import Player from './Player.jsx';
 import '../css/App.css';
 import finish from '../images/finishline.gif';
@@ -33,7 +32,7 @@ class Field extends Component {
               
     componentDidMount(){
         document.addEventListener("keydown", (e) => this.move(e));
-        this.setState({myPosition : this.state.grid.indexOf(player)})
+        this.setState({myPosition : this.state.grid.indexOf(Player)})
     }
     
     componentWillUnmount() {
@@ -71,7 +70,7 @@ class Field extends Component {
             case finish :
                 let currentLevel = levels.indexOf(this.state.level)
                 let nextLevel = levels[currentLevel-1]
-                this.setState({grid : nextLevel, level : nextLevel, myPosition : nextLevel.indexOf(player)});
+                this.setState({grid : nextLevel, level : nextLevel, myPosition : nextLevel.indexOf(Player)});
                 return
             default:
                 return
@@ -116,7 +115,7 @@ class Field extends Component {
 
             let field = this.state.grid.map((tile,i) => 
             <Col key={i} style={{margin : '5px'}}>
-            {tile === player ? <Player pointing={this.state.pointing}/> : <Tile type={tile}/>}</Col>)
+            {tile === Player ? <Player pointing={this.state.pointing}/> : <Tile type={tile}/>}</Col>)
                 
         return(
         <Container>
