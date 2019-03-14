@@ -1,13 +1,10 @@
-import rock from './Boundary.png';
-import space from './space.jpg';
-import down from './down.png'
-import up from './up.png'
-import finish from './finishline.gif'
-import player from './components/Player.jsx';
-
+import rock from '../images/Boundary.png';
+import space from '../images/space.jpg';
+import finish from '../images/finishline.gif'
+import player from '../components/Player.jsx';
 
 export const levels = [
-        [down,space,space,space,space,
+        [player,space,space,space,space,
         rock,space,rock,rock,space,
         space,space,rock,rock,space,
         rock,rock,space,space,space,
@@ -33,7 +30,7 @@ export const levels = [
         rock,rock,space,rock,rock,
         space,space,'finish',space,space],
 
-        [down,rock,rock,rock,rock,
+        [player,rock,rock,rock,rock,
         space,rock,space,rock,space,
         space,space,space,rock,space,
         space,rock,space,space,rock,
@@ -59,7 +56,7 @@ export const levels = [
         space,space,rock,space,space,
         space,rock,rock,'finish',rock],
 
-        [space,space,space,space,down,
+        [space,space,space,space,player,
         space,rock,rock,rock,rock,
         space,space,space,space,space,
         rock,space,space,rock,rock,

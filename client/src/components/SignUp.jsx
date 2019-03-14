@@ -12,10 +12,7 @@ class SignUp extends Component {
 
   signUp(e){
     e.preventDefault()
-    console.log(this.props.history);
     let { username, password } = this.state
-    console.log(username);
-    console.log(password);
     if(username < 1 || password < 1){
       this.setState({errMsg:'Please fill in both input fields'})
       return
@@ -24,16 +21,13 @@ class SignUp extends Component {
       return
     }else{
       axios.post('/users/register', { username, password})
-      .then((response) => {
-          console.log(response)})
+      .then((response) => {console.log(response)})
           .then(()=> axios.post('/users/login',{ username, password}))
             .then(() => this.props.signin())
             .catch((err) => console.log(err))
       .catch((err)=> console.log(err));
-
+    }
   }
-}
-
 
   handleUsernameInput(input){
     this.setState({username: input})
@@ -52,10 +46,9 @@ class SignUp extends Component {
       <Container className="text-center" xs={12} md={{ size: 4, offset: 8 }}  style={{maxWidth: '400px'}}>
         <Row>
           <Col className="mt-5">
-              <h3 className="mb-5">Sign Up</h3>
+            <h3 className="mb-5">Sign Up</h3>
               {errMsg ? <Alert variant="danger">{this.state.errMsg}</Alert> : null }
                <Form onSubmit={(e) => this.signUp(e)}>
-
                   <Form.Group >
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text" value={this.state.username}  onChange={(e) => this.handleUsernameInput(e.target.value)}/>
@@ -67,10 +60,9 @@ class SignUp extends Component {
                   </Form.Group>
 
                   <Button className="m-4" type="submit">Register</Button>
-
-                    <p className= "m-1">Already a Member?</p>
-                    <NavLink to="/showLogIn"><Button variant="primary">Login</Button></NavLink> 
-              </Form> 
+                  <p className= "m-1">Already a Member?</p>
+                  <NavLink to="/showLogIn"><Button variant="primary">Login</Button></NavLink> 
+                </Form> 
          </Col>
         </Row>
       </Container>

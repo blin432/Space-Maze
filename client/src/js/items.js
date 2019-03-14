@@ -1,7 +1,7 @@
-import Rock from './Boundary.png';
-import Clock from './clock.png';
-import Wormhole from './wormhole.gif';
-import Flag from './finishline.gif';
+import Rock from '../images/Boundary.png';
+import Clock from '../images/clock.png';
+import Wormhole from '../images/wormhole.gif';
+import Flag from '../images/finishline.gif';
 
 export const items = [ 
     {img:Rock,
@@ -12,3 +12,5 @@ export const items = [
     description: "Wormholes transport you through space time. Who knows where they'll send you."},
     {img:Clock,
     description: "Shave 5 seconds off your leaderboard time by picking up clocks."}]
+
+export default items;

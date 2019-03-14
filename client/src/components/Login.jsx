@@ -2,21 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button,Form,Container,Row,Col,Alert } from 'react-bootstrap';
 import {withRouter } from 'react-router-dom';
-
-// import './SignIn.css';
-// import Modal from 'react-bootstrap/Modal';
-// import {data} from '../signUpData.js';
-
 class Login extends Component {
-  constructor(props){
-    super(props)
-    this.state={
+    state={
       username: '',
       password: '',
       errMsg: ''
     }
-  }
-
 
   login(e){
     e.preventDefault()
@@ -40,7 +31,7 @@ class Login extends Component {
   }
 
 
-render() {
+  render() {
 
   let {errMsg} = this.state
 
@@ -70,8 +61,8 @@ render() {
         </Col>
       </Row>
     </Container>
-  );
-}
+    );
+  }
 }
 
 export default withRouter(Login);
