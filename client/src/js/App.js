@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
-import Field from './components/Field.jsx';
-import SignUp from './components/SignUp.jsx';
-import Login from './components/Login.jsx';
-import Home from './components/Home.jsx';
+import '../css/App.css';
+import Field from '../components/Field.jsx';
+import SignUp from '../components/SignUp.jsx';
+import Login from '../components/Login.jsx';
+import Home from '../components/Home.jsx';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
-import NavBar from './components/NavBar.jsx';
+import NavBar from '../components/NavBar.jsx';
 import axios from 'axios';
 class App extends Component {
     state = {

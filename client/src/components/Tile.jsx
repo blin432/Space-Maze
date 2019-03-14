@@ -1,47 +1,28 @@
 import React,{Component} from 'react';
-import Rock from '../Boundary.png';
-import Space from '../space.jpg';
-// import Asteroid from '../asteroid.png';
-import Down from '../down.png';
+
 class Tile extends Component {
     constructor(props){
         super(props)
         this.state = {
-            passable : this.props.passable,
-            finish:this.props.finish
+            type : this.props.type,
+            pointing: this.props.pointing
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.pointing !== prevProps.pointing){
+            this.setState({pointing : this.props.pointing});
         }
     }
 
     render(){
-
-        let renderedObject= ()=>{
-            if (this.state.finish ===false){
-                return Down;
-            } else if(this.state.passable ===false){
-                return Rock;
-            }else if(this.state.passable ===true){
-                return Space;
-            }
-            
-        };
+        let { type, pointing } = this.state
         return(
-        <img src={renderedObject() } style={{height: 30, width: 30, backgroundColor : 'black' }} alt={'tile'}/>
+        <img src={type === 'player' ? pointing : type} 
+        style={{height: 30, width: 30, backgroundColor : 'black' }} 
+        alt={'tile'}/>
         )
     }
 }
-// let mapStateToProps = (state) =>(
-//     { 
-//         grid : state.grid,
-//         myPosition: state.myPosition,
-//         pointing : state.pointing,
-    
-//     }
-// )
 
-// let mapDispatchToProps = (dispatch) =>(
-//     {
-//        addColor: () => dispatch({type:'ADDCOLOR'}),
-//        skipColor: () => dispatch({type: 'SKIPCOLOR'})
-//     }
-// )
 export default Tile

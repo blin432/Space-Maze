@@ -35,18 +35,18 @@
 }
 
 .up{
-  background-image: url("./up.jpg");
+  background-image: url("../images/up.jpg");
 }
 
 .down{
-  background-image: url("./down.jpg");
+  background-image: url("../images/down.jpg");
 }
 
 .left{
-  background-image: url("./left.jpg");
+  background-image: url("../images/left.jpg");
 }
 
 .right{
-  background-image: url("./right.jpg");
+  background-image: url("../images/right.jpg");
 }
 

@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
-import '../App.css';
+import '../css/App.css';
 
 class Player extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            health: 100,
+        state = {
+            pointing: this.props.pointing,
         }
-    }
 
     componentDidUpdate(prevProps){
         if(this.props.pointing !== prevProps.pointing){
-            this.fetchData(this.props.pointing);
+            this.setState({pointing : this.props.pointing});
         }
     }
-    
 
     render(){
         return(
-            <img src={this.props.pointing} style={{height: 30, width: 30}} alt={'rocket'}/>
+            <img src={this.state.pointing} 
+            style={{height: 30, width: 30}} 
+            alt={'rocket'}/>
         )
     }
 }
