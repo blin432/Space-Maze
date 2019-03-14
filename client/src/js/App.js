@@ -19,8 +19,6 @@ class App extends Component {
   }
 
   logout(){
-    console.log('reached logout');
-    console.log(this.props);
     axios.post('/users/logout')
     .then(
       this.setState({isLoggedIn : false},
@@ -35,7 +33,6 @@ class App extends Component {
 
   render(){
     let { isLoggedIn } = this.state
-    console.log(`isLoggedIn from app.js : ${isLoggedIn}`)
     return(
       <div style={{height:'100vh', width:'100%'}}>
         <NavBar isLoggedIn={this.state.isLoggedIn} logout={this.logout.bind(this)}/>
