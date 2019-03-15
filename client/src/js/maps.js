@@ -82,8 +82,8 @@ export const levels = [
         space,rock,rock,space,space,
         finish,rock,rock,space,rock],
 
-        [rock,rock,finish,rock,rock,
-        space,space,rock,space,rock,
+        [rock,rock,rock,rock,rock,
+        Player,space,rock,space,rock,
         space,rock,rock,space,space,
         space,space,space,rock,space,
         space,rock,space,rock,space,
@@ -106,7 +106,7 @@ export const levels = [
         rock,rock,space,rock,space,
         space,space,space,space,space,
         space,rock,rock,rock,rock,
-        space,space,space,space,Player],
+        space,space,space,space,finish],
 
         [rock,rock,rock,rock,rock,
         Player,space,space,space,space,

@@ -5,13 +5,12 @@ class Tile extends Component {
         super(props)
         this.state = {
             type : this.props.type,
-            pointing: this.props.pointing
         }
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.pointing !== prevProps.pointing){
-            this.setState({pointing : this.props.pointing});
+        if(this.props.type !== prevProps.type){
+            this.setState({type : this.props.type});
         }
     }
 
