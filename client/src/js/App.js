@@ -7,6 +7,8 @@ import Home from '../components/Home.jsx';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import NavBar from '../components/NavBar.jsx';
 import axios from 'axios';
+// import { connect } from 'react-redux';
+
 class App extends Component {
     state = {
       isLoggedIn : false
