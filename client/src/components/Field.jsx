@@ -19,16 +19,10 @@ import '../css/MobileButton.css'
 import Tips from './Tips.jsx';
 
 class Field extends Component {
-    state = {
-            grid : levels[4],
-            level : levels[4],
-            myPosition: null,
-            pointing : up,
-            show:false,
-            username:'',
-            time:123,
-            modalShow : true
-        }
+    constructor(props){
+        super(props)
+        this.state = {...this.props}
+    }
               
     componentDidMount(){
         document.addEventListener("keydown", (e) => this.move(e));
@@ -47,13 +41,7 @@ class Field extends Component {
         .catch((error) => console.log(error));
     }
 
-    // spawnShip(){
-    //     let newGrid = [...this.state.grid]
-    //     let randomIndex = Math.floor(Math.random()*newGrid.length);
-    //     newGrid[randomIndex] = 2;
-    //     newGrid[0]=3;
-    //     this.setState({grid : newGrid, myPosition: randomIndex})
-    // }
+
    
     calculateNewPosition(movement,pointTo){
         let updatedGrid = [...this.state.grid]
@@ -63,19 +51,20 @@ class Field extends Component {
             case rock :
                 return
             case space :
-                updatedGrid[endPosition] = updatedGrid[this.state.myPosition];
-                updatedGrid[this.state.myPosition] = space
-                this.setState({grid : updatedGrid, myPosition: endPosition, pointing: pointTo})
-                return
+                return ({type:"MOVE", movement , pointTo})
             case finish :
                 let currentLevel = levels.indexOf(this.state.level)
                 let nextLevel = levels[currentLevel-1]
-                this.setState({grid : nextLevel, level : nextLevel, myPosition : nextLevel.indexOf(Player)});
-                return
+                return currentLevel === 0 ? 
+                ({type:"BEAT_GAME"}) : 
+                ({type: "LEVEL_UP", 
+                    grid : nextLevel, 
+                    myPosition : nextLevel.indexOf(Player)})
             default:
                 return
         }
     }
+
     
     move({keyCode}){
 
@@ -112,6 +101,8 @@ class Field extends Component {
     }
     
         render(){
+            console.log(`this.state.grid: ${this.state.length}`);
+            console.log(`this.props.grid: ${this.props.length}`);
 
             let field = this.state.grid.map((tile,i) => 
             <Col key={i} style={{margin : '5px'}}>
