@@ -17,21 +17,31 @@ import Highscores from './Highscores.jsx';
 import MobileButton from './MobileButton.jsx';
 import '../css/MobileButton.css'
 import Tips from './Tips.jsx';
+import {createStore } from 'redux';
+import {mainReducer} from '../reducers/main-reducer.js'
+import clock from '../images/clock.png'
+import wormhole from '../images/wormhole.gif'
+
+let store = createStore(mainReducer);
 
 class Field extends Component {
     constructor(props){
         super(props)
-        this.state = {...this.props}
+        this.state = {...store.getState()}
     }
               
     componentDidMount(){
         document.addEventListener("keydown", (e) => this.move(e));
-        this.setState({myPosition : this.state.grid.indexOf(Player)})
+        store.dispatch({type:"START_GAME"})  
+        this.setState({...store.getState()})  
     }
+
     
     componentWillUnmount() {
         document.removeEventListener("keydown", (e) => this.move(e));
     }
+
+    
 
     postHighScore(){
         let {username, time} = this.state
@@ -40,24 +50,27 @@ class Field extends Component {
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
     }
-
-
    
     calculateNewPosition(movement,pointTo){
         let updatedGrid = [...this.state.grid]
         let endPosition = this.state.myPosition+movement;
-
         switch(updatedGrid[endPosition]){
             case rock :
                 return
             case space :
-                return ({type:"MOVE", movement , pointTo})
+                return store.dispatch({type:"MOVE", movement , pointTo})
+            case wormhole:
+                store.dispatch({type:"TELEPORT"})
+                this.setState({...store.getState()})  
+                return
+            case clock:
+                return store.dispatch({type:"SAVE_TIME"})
             case finish :
                 let currentLevel = levels.indexOf(this.state.level)
                 let nextLevel = levels[currentLevel-1]
                 return currentLevel === 0 ? 
-                ({type:"BEAT_GAME"}) : 
-                ({type: "LEVEL_UP", 
+                console.log('beatgame reached') 
+                : store.dispatch({type: "LEVEL_UP", 
                     grid : nextLevel, 
                     myPosition : nextLevel.indexOf(Player)})
             default:
@@ -74,12 +87,14 @@ class Field extends Component {
                     return
                 }
                 this.calculateNewPosition(-1,left);
+                this.setState({...store.getState()})  
                 break;
             case 38:
                 if(this.state.myPosition -5 < 0 ){
                     return
                 }
                 this.calculateNewPosition(-5,up)
+                this.setState({...store.getState()})  
                 break;
             case 39:
                 for(let i = this.state.myPosition; i >= 4; i-=5){
@@ -88,12 +103,14 @@ class Field extends Component {
                     }
                 }
                 this.calculateNewPosition(+1,right)
+                this.setState({...store.getState()})  
                 break;
             case 40:
                 if(this.state.myPosition + 5 > this.state.grid.length){
                     return
                 }
                 this.calculateNewPosition(+5,down)
+                this.setState({...store.getState()})  
                 break;
             default: 
                 break;
@@ -101,9 +118,7 @@ class Field extends Component {
     }
     
         render(){
-            console.log(`this.state.grid: ${this.state.length}`);
-            console.log(`this.props.grid: ${this.props.length}`);
-
+            
             let field = this.state.grid.map((tile,i) => 
             <Col key={i} style={{margin : '5px'}}>
             {tile === Player ? <Player pointing={this.state.pointing}/> : <Tile type={tile}/>}</Col>)
