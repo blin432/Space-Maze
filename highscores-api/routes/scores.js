@@ -16,6 +16,7 @@ router.get('/highscores', function (req, res, next) {
         });
 });
 
+
 // GET ALL SCORES FOR ANY USER
 router.get('/user/:username', function (req, res, next) {
     let username = req.params.username;
@@ -50,11 +51,11 @@ router.post('/record', function (req, res, next) {
                 error: "PROVIDE A SCORE TO RECORD"
             })
         } else {
-            db.one('INSERT INTO scores(points, username) VALUES($1, $2) RETURNING id', [points, req.user.username])
+            db.one('INSERT INTO scores(points, username, level) VALUES($1, $2, $3) RETURNING id', [points, req.user.username, req.body.level])
+            console.log(req.body)
                 .then(data => {
-                    console.log
                     console.log(data.id); // print new score id;
-                    res.json(data)
+                    res.json(data);
                 })
                 .catch(error => {
                     console.log('ERROR:', error); // print error;

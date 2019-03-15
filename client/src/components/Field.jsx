@@ -17,35 +17,78 @@ import Highscores from './Highscores.jsx';
 import MobileButton from './MobileButton.jsx';
 import '../css/MobileButton.css'
 import Tips from './Tips.jsx';
+import ms from 'pretty-ms';
+
 
 class Field extends Component {
-    state = {
-            grid : levels[4],
-            level : levels[4],
+    constructor(props){
+        super(props)
+        this.state = {
+            grid : levels[0],
+            level : levels[0],
             myPosition: null,
             pointing : up,
             show:false,
             username:'',
-            time:123,
-            modalShow : true
+            modalShow : false,
+            time: 0,
+            isOn: false,
+            start: 0
+            
         }
+    this.startTimer = this.startTimer.bind(this)
+    this.stopTimer = this.stopTimer.bind(this)
+    this.resetTimer = this.resetTimer.bind(this)
+}
+    
               
     componentDidMount(){
-        document.addEventListener("keydown", (e) => this.move(e));
+        document.addEventListener("keydown", (e) =>{
+            // this.startTimer(); use this to trigger timer on key down
+            this.move(e); 
+        } );
         this.setState({myPosition : this.state.grid.indexOf(Player)})
     }
     
     componentWillUnmount() {
-        document.removeEventListener("keydown", (e) => this.move(e));
+        document.removeEventListener("keydown", (e) =>{
+           this.move(e); 
+        } );
+       
+        
     }
 
     postHighScore(){
-        let {username, time} = this.state
-
-        axios.post('/scores/record',{username ,points: time})
+        let {username} = this.state;
+        let time = this.state.time/1000;
+        console.log(time);
+        let currentLevel = levels.indexOf(this.state.level)+1;
+        console.log(currentLevel);
+        axios.post('/scores/record',{points:time,username:username,level:currentLevel})
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
     }
+    
+    startTimer() {
+        this.setState({
+          isOn: true,
+          time: this.state.time,
+          start: Date.now() - this.state.time
+        })
+        this.timer = setInterval(() => this.setState({
+          time: Date.now() - this.state.start
+        }), 1);
+      }
+      stopTimer() {
+        this.setState({isOn: false})
+        clearInterval(this.timer)
+      }
+      resetTimer() {
+        this.setState({time: 0, isOn: false})
+      }
+
+      /////////////////////
+    
 
     // spawnShip(){
     //     let newGrid = [...this.state.grid]
@@ -68,9 +111,19 @@ class Field extends Component {
                 this.setState({grid : updatedGrid, myPosition: endPosition, pointing: pointTo})
                 return
             case finish :
-                let currentLevel = levels.indexOf(this.state.level)
-                let nextLevel = levels[currentLevel-1]
-                this.setState({grid : nextLevel, level : nextLevel, myPosition : nextLevel.indexOf(Player)});
+                this.postHighScore();
+                let currentLevel = levels.indexOf(this.state.level);
+                console.log(currentLevel);
+                let nextLevel = levels[currentLevel+1];
+                clearInterval(this.timer);
+                this.setState({
+                    grid : nextLevel,
+                    modalShow:true,
+                    level : nextLevel, 
+                    myPosition : nextLevel.indexOf(Player),
+                    time: 0, 
+                    isOn: false
+                });
                 return
             default:
                 return
@@ -112,14 +165,21 @@ class Field extends Component {
     }
     
         render(){
-
+            let level=this.state.level;
+            let start = (this.state.time == 0) ?
+            <button onClick={this.startTimer}>start</button> :
+            null
+      
             let field = this.state.grid.map((tile,i) => 
             <Col key={i} style={{margin : '5px'}}>
             {tile === Player ? <Player pointing={this.state.pointing}/> : <Tile type={tile}/>}</Col>)
                 
         return(
         <Container>
-            <GameTimer/>
+            <div>
+                <h3>timer: {ms(this.state.time)}</h3>
+                {start}
+            </div>
                 <Row style={{margin : 0, padding: 0}}>
                     <Col className="justify-content-center mt-3" 
                         sm={12} 
@@ -130,7 +190,9 @@ class Field extends Component {
                         </div>
                         <Tips/>
                         <div className="d-md-none">
-                            <Highscores />
+                        {/* this Highscores Component is causing componentDidMount in the HighScore component 
+                            to render twice. I am assuming this component is for mobile. */}
+                            {/* <Highscores level={this.state.level}/> */}
                         </div>
                     </Col>
 
@@ -140,13 +202,15 @@ class Field extends Component {
                 
                     <Col sm={12} md={3}>
                         <div className="d-none d-md-block" >
-                            <Highscores />
+                           
+                            <Highscores level={level}/>
                         </div>
                     </Col>
                 </Row>
             <div className="d-md-none" style={{marginTop : '-800px'}}>
                 <MobileButton move={this.move.bind(this)}/>
             </div>
+            
         </Container>
         )
     }
