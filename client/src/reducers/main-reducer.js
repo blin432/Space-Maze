@@ -10,7 +10,8 @@ let initState = {
     pointing : up,
     username:'',
     time:0,
-    modalShow : false
+    modalShow : false,
+    hasFetched:false
 }
 
 export const mainReducer = (state = initState, action) => {
@@ -69,7 +70,8 @@ export const mainReducer = (state = initState, action) => {
                 ...state,
                 grid:nextLevel,
                 level:nextLevel,
-                myPosition: nextLevel.indexOf(Player)
+                myPosition: nextLevel.indexOf(Player),
+                hasFetched:false
          }
         case "BEAT_GAME":
         return {

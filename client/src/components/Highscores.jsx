@@ -6,9 +6,10 @@ class Highscores extends Component {
     super(props)
     this.state = {
       scores : [],
-      level : this.props.level+1
-
+      level : this.props.level+1,
+      hasFetched:this.props.hasFetched
     }
+   
     // this.levelToRender = levels.indexOf(this.props.level)+1;
 }
      
@@ -22,15 +23,24 @@ class Highscores extends Component {
   }
 
   componentDidUpdate(){
+   
     if(this.props.level !== this.state.level){
-
+    console.log("s")
       axios.get('/scores/highscores')
       .then( resp => 
       this.setState({level:this.props.level,
+      hasFetched:true,
       scores: resp.data.filter( score => 
       score.level === this.state.level,
       )})).catch(err => console.log(err))
     }
+}
+
+shouldComponentUpdate(nextProps, nextState) {
+  if ( this.state.hasFetched ) {
+    return false;
+  }
+  return true;
 }
 
 format(s) {
