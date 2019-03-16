@@ -25,7 +25,7 @@ class RulesModal extends Component {
                     </Row>
                   </Container>
                 </Modal.Body>
-          <Modal.Footer>
+              <Modal.Footer>
             <Button onClick={this.props.onHide}>Close</Button>
           </Modal.Footer>
         </Modal>

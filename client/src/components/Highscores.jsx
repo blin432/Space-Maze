@@ -2,27 +2,56 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Navbar, Nav, Row, Col} from 'react-bootstrap';
 class Highscores extends Component {
-      state={
-        scores:[]
-    }
+  constructor(props){
+    super(props)
+    this.state = {
+      scores : [],
+      level : this.props.level+1
 
-  componentDidMount(){
-    axios.get('/scores/highscores').then((response)=>{
-      this.setState({scores:response.data})
-    }).catch(err => console.log(err))
+    }
+    // this.levelToRender = levels.indexOf(this.props.level)+1;
+}
+     
+
+  componentDidMount(e){
+    axios.get('/scores/highscores')
+    .then( resp => 
+    this.setState({scores: resp.data.filter( score => 
+    score.level === this.state.level)}))
+    .catch(err => console.log(err))
   }
+
+  componentDidUpdate(){
+    if(this.props.level !== this.state.level){
+
+      axios.get('/scores/highscores')
+      .then( resp => 
+      this.setState({level:this.props.level,
+      scores: resp.data.filter( score => 
+      score.level === this.state.level,
+      )})).catch(err => console.log(err))
+    }
+}
+
+format(s) {
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  return `${mins}:${secs}` 
+}
+
    
 render() {
-
-    let { scores } = this.state
+  
+    let {scores , level } = this.state
     let players = scores.map((player,i) => <p key={i}>{player.username}</p>)
-    let times = scores.map((score,i) => <p key={i}>{score.points}</p>)
+    let times = scores.reverse().map((score,i) => <p key={i}>{this.format(score.points)}</p>)
 
   return (
     <Col className="justify-content-center mt-3" style={{ margin : 0, padding: 0 }}>
-      <Row className="d-none d-md-block"><h3 className="m-3">lv 1 Leader Board</h3></Row>
+      <Row className="d-none d-md-block text-center"><h3 className="m-3">Lv {level} Top 10</h3></Row>
         <Navbar expand="md" className="justify-content-between">
-          <Row className="d-md-none d-block"><h3 className="m-3">lv 1 Leader Board</h3></Row>
+          <Row className="d-md-none d-block text-center"><h3 className="m-3">Lv {level} Top 10</h3></Row>
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
@@ -32,8 +61,8 @@ render() {
                       {players}
                     </Col>
                     <Col>
-                      <h5 style= {{textDecoration:'underline'}}>Score</h5>
-                      {times}
+                      <h5 style= {{textDecoration:'underline'}}>Time</h5>
+                      {times.slice(0,10)}
                     </Col>
                   </Row>
                 </Nav>

@@ -7,7 +7,6 @@ let mapStateToProps = ( state ) => (
         level : state.level,
         myPosition: state.myPosition,
         pointing : state.pointing,
-        show: state.show,
         username: state.username,
         time: state.time,
         modalShow : state.modalShow
@@ -20,7 +19,9 @@ let mapDispatchToProps = (dispatch) => (
         saveTime: () => dispatch({type:"SAVE_TIME"}),
         teleport: () => dispatch({type: "TELEPORT"}),
         levelUp: () => dispatch({type: "LEVEL_UP"}),
+        startGame: () => dispatch({type: "START_GAME"}),
         beatGame: () => dispatch({type: "BEAT_GAME"})
+
 
     }
 )

@@ -4,14 +4,13 @@ import space from '../images/space.jpg';
 import Player from '../components/Player.jsx';
 
 let initState = {
-    grid : levels[4],
-    level : levels[4],
+    grid : levels[0],
+    level : levels[0],
     myPosition: null,
     pointing : up,
-    show:false,
     username:'',
-    time:123,
-    modalShow : true
+    time:0,
+    modalShow : false
 }
 
 export const mainReducer = (state = initState, action) => {
@@ -25,40 +24,58 @@ export const mainReducer = (state = initState, action) => {
         updatedGrid[state.myPosition] = space
 
          return {
+            ...state,
             grid : updatedGrid, 
             myPosition: endPosition, 
             pointing: pointTo
 
          }
         case "SAVE_TIME":
+        let {currentPosition, clockTile, currentTime} = action
+        let newGrid = [...state.grid]
+        newGrid[clockTile] = Player
+        newGrid[currentPosition] = space
+        let newTime = currentTime -5500
          return {
-
+            ...state,
+            grid : newGrid,
+            myPosition: newGrid.indexOf(Player),
+            time: newTime
          }
         case "TELEPORT":
 
-        let randomIndx = Math.floor(Math.random()*state.grid.length)
-
+        let randomIndx = Math.floor(Math.random()*(state.grid.length))
+        updatedGrid = [...state.grid]
+        updatedGrid[state.myPosition] = space
         while(state.grid[randomIndx] !== space ){
-            randomIndx = Math.floor(Math.random()*state.grid.length)
+            randomIndx = Math.floor(Math.random()*(state.grid.length))
         }
+        updatedGrid[randomIndx] = Player
          return {
-            myPosition : Math.floor(Math.random()*state.grid.length)
+            ...state,
+            grid : updatedGrid,
+            myPosition : randomIndx
          }
-        case "LEVEL_UP":
+        case "START_GAME":
+            return {
+                ...state,
+                myPosition : state.grid.indexOf(Player)
 
-        let currentLevel = levels.indexOf(this.state.level)
-        let nextLevel = levels[currentLevel-1]
-        
+            }
+        case "LEVEL_UP":
+        let currentLevel = levels.indexOf(state.level)
+        let nextLevel = levels[currentLevel+1]
          return {
+                ...state,
                 grid:nextLevel,
                 level:nextLevel,
                 myPosition: nextLevel.indexOf(Player)
          }
-
         case "BEAT_GAME":
-         return {
-
-         }
+        return {
+            ...state,
+            modalShow: true
+        }
         default:
         return state;
     }

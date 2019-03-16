@@ -11,7 +11,7 @@ const Tips = () => (
 
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">
+                    <Nav>
                         <Row className="text-center">
                             {items.map((item,i) => 
                             <div key={i} className="m-2">
