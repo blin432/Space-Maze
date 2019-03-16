@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Navbar, Nav, Row, Col} from 'react-bootstrap';
+import {createStore } from 'redux';
+import {mainReducer} from '../reducers/main-reducer.js'
+let store = createStore(mainReducer);
 class Highscores extends Component {
   constructor(props){
     super(props)
@@ -36,9 +39,16 @@ class Highscores extends Component {
     }
 }
 
+// added this lifecycle because time is continuously rerendering
 shouldComponentUpdate(nextProps, nextState) {
-  if ( this.state.hasFetched ) {
-    return false;
+  if ( this.props.level===this.state.level ){
+    // this.setState({
+    //   level:this.state.level
+    // })
+    console.log(nextProps, nextState);
+    console.log(this.props, this.state);
+    return false 
+    
   }
   return true;
 }

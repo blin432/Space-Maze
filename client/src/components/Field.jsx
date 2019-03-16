@@ -105,7 +105,7 @@ class Field extends Component {
                     this.postHighScore()
                     clearInterval(this.timer);
                     store.dispatch({type: "LEVEL_UP"})
-                    this.setState({hasFetched:false})
+                    // this.setState({hasFetched:false})
                     this.setState({...store.getState()}) }
                 return 
                 default:
