@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Navbar, Nav, Row, Col} from 'react-bootstrap';
+import {createStore } from 'redux';
+import {mainReducer} from '../reducers/main-reducer.js'
+let store = createStore(mainReducer);
 class Highscores extends Component {
   constructor(props){
     super(props)
     this.state = {
       scores : [],
-      level : this.props.level+1
-
+      level : this.props.level+1,
+      hasFetched:this.props.hasFetched
     }
+   
     // this.levelToRender = levels.indexOf(this.props.level)+1;
 }
      
@@ -22,15 +26,31 @@ class Highscores extends Component {
   }
 
   componentDidUpdate(){
+   
     if(this.props.level !== this.state.level){
-
+    console.log("s")
       axios.get('/scores/highscores')
       .then( resp => 
       this.setState({level:this.props.level,
+      hasFetched:true,
       scores: resp.data.filter( score => 
       score.level === this.state.level,
       )})).catch(err => console.log(err))
     }
+}
+
+// added this lifecycle because time is continuously rerendering
+shouldComponentUpdate(nextProps, nextState) {
+  if ( this.props.level===this.state.level ){
+    // this.setState({
+    //   level:this.state.level
+    // })
+    console.log(nextProps, nextState);
+    console.log(this.props, this.state);
+    return false 
+    
+  }
+  return true;
 }
 
 format(s) {

@@ -105,6 +105,7 @@ class Field extends Component {
                     this.postHighScore()
                     clearInterval(this.timer);
                     store.dispatch({type: "LEVEL_UP"})
+                    // this.setState({hasFetched:false})
                     this.setState({...store.getState()}) }
                 return 
                 default:
@@ -175,7 +176,7 @@ class Field extends Component {
                         <Tips/>
 
                         <div className="d-md-none">
-                            <Highscores level={level}/>
+                            {/* <Highscores level={level}/> */}
                         </div>
                     </Col>
 
@@ -185,7 +186,7 @@ class Field extends Component {
                 
                     <Col sm={12} md={3}>
                         <div className="d-none d-md-block" >
-                            <Highscores level={level}/>
+                            <Highscores level={level} hasFetched={this.state.hasFetched}/>
                         </div>
                     </Col>
                 </Row>
