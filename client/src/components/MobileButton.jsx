@@ -5,11 +5,11 @@ class MobileButton extends Component {
       constructor(props){
         super(props)
         this.state={}
-        }
+      }
 
 render(){
   return(
-    <div className="mobile" style={{opacity : '0.065'}}>
+    <div className="mobile" style={{opacity : '0.1'}}>
       <Row className="pt-4 d-flex justify-content-center" >
           <img alt="button"
           style={{height:"100px", witdh:"100px"}}

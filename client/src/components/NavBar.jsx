@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
-import {NavLink ,Link,  withRouter} from 'react-router-dom';
+import {NavLink ,Link, withRouter} from 'react-router-dom';
 import {navOpts} from '../js/navOpts.js';
 import up from '../images/up.png';
 import '../css/App.css';
